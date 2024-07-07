@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ユーザー登録フォーム - ステップ2</title>
+</head>
+
+<body>
+    <h2>ユーザー登録フォーム - ステップ2</h2>
+    <?php if (!empty($err)): ?>
+    <ul>
+        <?php foreach ($err as $e): ?>
+        <li style="color: red;"><?php echo $e; ?></li>
+        <?php endforeach; ?>
+    </ul>
+    <?php endif; ?>
+    <form action="" method="post" class="h-adr">
+        <script src="https://yubinbango.github.io/yubinbango/yubinbango.js" charset="UTF-8"></script>
+
+        <span class="p-country-name" style="display:none;">Japan</span>
+        <div>
+            <label for="phone">電話番号:</label>
+            <input type="text" id="phone" name="phone" size="11" maxlength="11" required>
+        </div>
+        <div>
+            〒<input type="text" class="p-postal-code" size="8" maxlength="8" name="postal"><br>
+            <label for="address">住所:</label>
+            <input type="text" id="address" name="address"
+                class="p-region p-locality p-street-address p-extended-address" required>
+        </div>
+        <div>
+            <button type="submit">登録</button>
+        </div>
+    </form>
+</body>
+
+</html>
