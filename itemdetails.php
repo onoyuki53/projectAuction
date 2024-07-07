@@ -6,7 +6,7 @@ $servername = "localhost";
 $username = "user1";
 $password = "passwordA1!";
 $dbname = "auction";
-
+$login_user = $_SESSION['login_user'];
 // データベースへの接続
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -38,37 +38,35 @@ if(isset($_GET['item_id'])) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title><?php echo $item_name; ?>の詳細</title>
 </head>
 <body>
-    <h1><?php echo $item_name; ?></h1>
+    <h1><?php echo htmlspecialchars($item_name, ENT_QUOTES, 'UTF-8'); ?></h1>
     <p>価格: ¥<?php echo number_format($item_price); ?></p>
-    <p>出品者: <?php echo $item_user; ?></p>
+<p>出品者: <?php echo htmlspecialchars($item_user, ENT_QUOTES, 'UTF-8'); ?></p>
 
-    <div>
-        <!-- 商品画像の表示 -->
-        <?php
-        if ($result_images->num_rows > 0) {
-            while($row_image = $result_images->fetch_assoc()) {
-                echo "<img src='" . $row_image['image_path'] . "' alt='商品画像'>";
-            }
-        } else {
-            echo "画像はありません。";
-        }
-        ?>
-    </div>
+<div>
+    <!-- 商品画像の表示 -->
+    <?php
+    if ($result_images->num_rows > 0) {
+        $row_image = $result_images->fetch_assoc();
+        echo "<img src='" . htmlspecialchars($row_image['image_path'], ENT_QUOTES, 'UTF-8') . "' alt='商品画像'>";
+    } else {
+        echo "画像はありません。";
+    }
+    ?>
+</div>
 
-    <!-- 入札フォーム -->
+<!-- 入札フォーム -->
+<?php if (isset($_SESSION['login_user'])): ?>
     <form action="bid_process.php" method="post">
         <label for="bid_amount">入札金額:</label>
         <input type="text" id="bid_amount" name="bid_amount" required>
-        <input type="hidden" name="item_id" value="<?php echo $item_id; ?>">
+        <input type="hidden" name="item_id" value="<?php echo htmlspecialchars($item_id, ENT_QUOTES, 'UTF-8'); ?>">
         <input type="submit" value="入札する">
     </form>
+<?php else: ?>
+    <p>入札するには <a href="login.php">ログイン</a> してください。</p>
+<?php endif; ?>
 
 </body>
 </html>

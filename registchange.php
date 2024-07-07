@@ -18,7 +18,7 @@ if (!isset($_SESSION['login_user'])) {
     exit;
 }
 
-    $login_user = $_SESSION['login_user'];
+$login_user = $_SESSION['login_user'];
 $err = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
