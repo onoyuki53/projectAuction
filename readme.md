@@ -87,32 +87,32 @@ VALUES
 
 
 ## ファイル情報ツリー
-.
-├── a
-├── bag_category.png
-├── bid.php
-├── bike_category.png
-├── clothes_category.png
-├── database.php
-├── image //商品画像格納場所
-│   ├── image1.jpg
-│   ├── image2.jpg
-│   ├── image3.jpg
-│   ├── image4.jpg
-│   └── image5.jpg
-├── image_add.php
-├── index.php
-├── itemdetails.php
-├── login.php
-├── mypage.php
-├── readme.md
-├── registchange.php
-├── register_complete.php
-├── registst1.php
-├── registst2.php
-├── temp
-│   ├── bid_process.php
-│   ├── login1.php
-│   └── regist.php
-├── test.php
-└── watch_category.png
+.  
+├── a  
+├── bag_category.png  
+├── bid.php  
+├── bike_category.png  
+├── clothes_category.png  
+├── database.php  
+├── image //商品画像格納場所  
+│   ├── image1.jpg  
+│   ├── image2.jpg  
+│   ├── image3.jpg  
+│   ├── image4.jpg  
+│   └── image5.jpg  
+├── image_add.php  
+├── index.php  
+├── itemdetails.php  
+├── login.php  
+├── mypage.php  
+├── readme.md  
+├── registchange.php  
+├── register_complete.php  
+├── registst1.php  
+├── registst2.php  
+├── temp  
+│   ├── bid_process.php  
+│   ├── login1.php  
+│   └── regist.php  
+├── test.php  
+└── watch_category.png  
