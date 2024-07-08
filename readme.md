@@ -17,6 +17,10 @@
 ## test.php
 送っていただいたデザインにデータベースの情報を表示できるように変更  
 
+## bid.php
+入札処理php表示等なし。
+
+## 使用したSQL文
 
 ```sql:User Table
 CREATE TABLE `User`(
@@ -60,3 +64,55 @@ CREATE TABLE `Item_Image` (
     `image_path` VARCHAR(255) NOT NULL DEFAULT ''
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4;
 ```
+
+## アイテム情報表示のための仮sql登録文
+```sql:ItemInfo Regist
+INSERT INTO `Item` (`item_id`, `item_name`, `item_price`, `item_user`)
+VALUES
+('item001', '商品A', 1000, 'user001'),
+('item002', '商品B', 2500, 'user002'),
+('item003', '商品C', 500, 'user001'),
+('item004', '商品D', 8000, 'user003');
+```
+
+```sql:Item_Image Regist
+INSERT INTO `Item_Image` (`item_id`, `image_path`)
+VALUES
+('item001', './image/image1.png'),
+('item001', './image/image2.png'),
+('item002', './image/image3.png'),
+('item003', './image/image4.png'),
+('item004', './image/image5.png');
+```
+
+
+## ファイル情報ツリー
+.
+├── a
+├── bag_category.png
+├── bid.php
+├── bike_category.png
+├── clothes_category.png
+├── database.php
+├── image //商品画像格納場所
+│   ├── image1.jpg
+│   ├── image2.jpg
+│   ├── image3.jpg
+│   ├── image4.jpg
+│   └── image5.jpg
+├── image_add.php
+├── index.php
+├── itemdetails.php
+├── login.php
+├── mypage.php
+├── readme.md
+├── registchange.php
+├── register_complete.php
+├── registst1.php
+├── registst2.php
+├── temp
+│   ├── bid_process.php
+│   ├── login1.php
+│   └── regist.php
+├── test.php
+└── watch_category.png
