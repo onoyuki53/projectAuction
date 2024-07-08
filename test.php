@@ -15,18 +15,15 @@ if ($conn->connect_error) {
 
 // クッキーが設定されているか確認
 if (!isset($_COOKIE['user_name'])) {
-    header("Location: login.php");
-    exit();
+    $logged_in = false;
+} else {
+    $logged_in = true;
+    $user_id = $_COOKIE['user_name'];
 }
-
-// クッキーからユーザー名を取得
-$user_id = $_COOKIE['user_name'];
 
 // 商品情報の取得と表示
 $sql = "SELECT Item.item_id, Item.item_name, Item.item_price, Item_Image.image_path FROM Item LEFT JOIN Item_Image ON Item.item_id = Item_Image.item_id;";
 $result = $conn->query($sql);
-
-
 ?>
 
 <!DOCTYPE html>
@@ -309,8 +306,8 @@ $result = $conn->query($sql);
       <a href="#">~オークション</a>
     </div>
     <div class="user-actions">
-      <a href="#">マイページ</a>
-      <a href="#">ログイン</a>
+      <a href="./mypage.php">マイページ</a>
+      <a href="./login.php">ログイン</a>
     </div>
   </header>
 
@@ -338,27 +335,35 @@ $result = $conn->query($sql);
     </div>
 
     <div class="product-list">
-  <?php
-  if ($result->num_rows > 0) {
-      while($row = $result->fetch_assoc()) {
-          echo '<div class="product-item">';
-          echo '<div class="product-image"><img src="' . $row["image_path"] . '" alt="' . $row["item_name"] . '"></div>';
-          echo '<div class="product-info">';
-          echo '<h3>' . $row["item_name"] . '</h3>';
-          echo '<p>¥' . number_format($row["item_price"]) . '</p>';
-          echo '<p>現在の入札額: ¥' . number_format($row["item_price"]) . '</p>';
-          echo '</div>';
-          echo '<div class="bid-form">';
-          echo '<input type="number" placeholder="入札額" />';
-          echo '<button>入札</button>';
-          echo '</div>';
-          echo '</div>';
+      <?php
+      if ($result->num_rows > 0) {
+          while($row = $result->fetch_assoc()) {
+              echo '<div class="product-item">';
+              echo '<div class="product-image"><img src="' . $row["image_path"] . '" alt="' . $row["item_name"] . '"></div>';
+              echo '<div class="product-info">';
+              echo '<h3>' . $row["item_name"] . '</h3>';
+              echo '<p>¥' . number_format($row["item_price"]) . '</p>';
+              echo '<p>現在の入札額: ¥' . number_format($row["item_price"]) . '</p>';
+              echo '</div>';
+              if ($logged_in) {
+                  echo '<div class="bid-form">';
+                  echo '<form method="POST" action="bid.php">';
+                  echo '<input type="hidden" name="item_id" value="' . $row["item_id"] . '">';
+                  echo '<input type="number" name="bid_amount" placeholder="入札額" required />';
+                  echo '<button type="submit">入札</button>';
+                  echo '</form>';
+                  echo '</div>';
+              } else {
+                  echo '<a href="login.php" class="login-button">ログインして入札</a>';
+              }
+              echo '</div>';
+          }
+      } else {
+          echo "商品が見つかりませんでした。";
       }
-  } else {
-      echo "商品が見つかりませんでした。";
-  }
-  ?>
-</div>
+      ?>
+    </div>
+  </div>
 
   </div>
   <div class="slideshow-container">
