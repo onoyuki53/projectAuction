@@ -1,26 +1,13 @@
 <?php
-session_start();
-require_once 'database.php'; // database.php をインクルード
-
-$item_id = $_GET['item_id'];
-$pdo = connect(); // PDO 接続を確立
-
-// 商品情報の取得
-$sql = "SELECT * FROM Item WHERE item_id = ?";
-$stmt = $pdo->prepare($sql);
-$stmt->bindParam(1, $item_id, PDO::PARAM_STR); // item_id を文字列としてバインド
-$stmt->execute();
-$item = $stmt->fetch(PDO::FETCH_ASSOC);
-
-// 商品画像の取得
-$sql_images = "SELECT image_path FROM Item_Image WHERE item_id = ?";
-$stmt_images = $pdo->prepare($sql_images);
-$stmt_images->bindParam(1, $item_id, PDO::PARAM_STR); // item_id を文字列としてバインド
-$stmt_images->execute();
-$images = $stmt_images->fetchAll(PDO::FETCH_ASSOC);
-
-$logged_in = isset($_SESSION['login_user']);
+// 商品情報を取得するためのPHPコード（例）
+$productName = "商品A";
+$currentBid = 1000;
+$imageUrls = [
+    "./image/image1.jpg",
+    "./image/image2.jpg"
+];
 ?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -97,9 +84,10 @@ $logged_in = isset($_SESSION['login_user']);
         .slideshow-container {
             max-width: 1000px;
             position: relative;
+            margin: auto;
         }
         .slide {
-            display: none; /* 初期状態で非表示 */
+            display: none;
             width: 100%;
             height: auto;
         }
@@ -112,23 +100,29 @@ $logged_in = isset($_SESSION['login_user']);
             position: absolute;
             top: 50%;
             width: auto;
-            margin-top: -22px;
             padding: 16px;
             color: white;
             font-weight: bold;
             font-size: 18px;
             transition: 0.6s ease;
-            border-radius: 0 3px 3px 0;
             user-select: none;
+        }
+        .prev {
+            left: 0;
+            border-radius: 3px 0 0 3px;
         }
         .next {
             right: 0;
-            border-radius: 3px 0 0 3px;
+            border-radius: 0 3px 3px 0;
         }
         .prev:hover, .next:hover {
             background-color: rgba(0,0,0,0.8);
         }
 
+        @keyframes fade {
+            from {opacity: .4} 
+            to {opacity: 1}
+        }
     </style>
 </head>
 <body>
@@ -142,42 +136,26 @@ $logged_in = isset($_SESSION['login_user']);
     </div>
 </header>
 <div class="container">
-    <?php
-    if (isset($_GET['status']) && $_GET['status'] == 'error' && isset($_GET['message'])) {
-        echo '<p style="color: red;">' . htmlspecialchars($_GET['message']) . '</p>';
-    }
-    ?>    
-    <?php if ($item): ?>
-        <div class="product-detail">
-            <div class="slideshow-container">
-                <?php foreach ($images as $index => $image): ?>
-                    <div class="slide">
-                        <img src="<?= htmlspecialchars($image["image_path"]) ?>" alt="<?= htmlspecialchars($item["item_name"]) ?>">
-                    </div>
-                <?php endforeach; ?>
-                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                <a class="next" onclick="plusSlides(1)">&#10095;</a>
-            </div>
-            <div class="product-info">
-                <h3><?= htmlspecialchars($item["item_name"]) ?></h3>
-                <p>¥<?= number_format($item["item_price"]) ?></p>
-                <p>現在の入札額: ¥<?= number_format($item["item_price"]) ?></p>
-            </div>
-            <?php if ($logged_in): ?>
-                <div class="bid-form">
-                    <form method="POST" action="bid.php">
-                        <input type="hidden" name="item_id" value="<?= htmlspecialchars($item["item_id"]) ?>">
-                        <input type="number" name="bid_amount" placeholder="入札額" required />
-                        <button type="submit">入札</button>
-                    </form>
+    <div class="product-detail">
+        <div class="slideshow-container">
+            <?php foreach ($imageUrls as $url): ?>
+                <div class="slide">
+                    <img src="<?php echo $url; ?>" alt="<?php echo $productName; ?>">
                 </div>
-            <?php else: ?>
-                <a href="login.php" class="login-button">ログインして入札</a>
-            <?php endif; ?>
+            <?php endforeach; ?>
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
         </div>
-    <?php else: ?>
-        <p>商品が見つかりませんでした。</p>
-    <?php endif; ?>
+        <div class="product-info">
+            <h3><?php echo $productName; ?></h3>
+            <p>¥<?php echo $currentBid; ?></p>
+            <p>現在の入札額: ¥<?php echo $currentBid; ?></p>
+        </div>
+        <div class="bid-form">
+            <input type="number" name="bid_amount" placeholder="入札額">
+            <button type="submit">入札</button>
+        </div>
+    </div>
 </div>
 <footer>
     <p>&copy; 2023 ブランドバンクオークション</p>
@@ -190,26 +168,34 @@ $logged_in = isset($_SESSION['login_user']);
         showSlides(slideIndex += n);
     }
 
-    function showSlides(n) {
-        let slides = document.getElementsByClassName("slide");
-        if (n > slides.length) { slideIndex = 1 }
-        if (n < 1) { slideIndex = slides.length }
-        for (let i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-        slides[slideIndex - 1].style.display = "block";
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
     }
 
-    let autoSlideTimer = setInterval(function () {
+    function showSlides(n) {
+        let i;
+        let slides = document.getElementsByClassName("slide");
+        if (n > slides.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = slides.length}
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slides[slideIndex-1].style.display = "block";
+    }
+
+    /*
+    // 自動スライド切り替え機能をコメントアウト
+    let autoSlideTimer = setInterval(function() {
         plusSlides(1);
     }, 3000);
 
-    document.querySelector(".slideshow-container").addEventListener("click", function () {
+    document.querySelector(".slideshow-container").addEventListener("click", function() {
         clearInterval(autoSlideTimer);
-        autoSlideTimer = setInterval(function () {
+        autoSlideTimer = setInterval(function() {
             plusSlides(1);
         }, 3000);
     });
+    */
 </script>
 </body>
 </html>

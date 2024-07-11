@@ -51,35 +51,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>ログインページ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ログイン</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./registst.css" rel="stylesheet">
 </head>
 <body>
-    <h2>ログインフォーム</h2>
+<div class="header">
+    <div class="header_logo">
+        <img src="./logo_square.png" alt="Logo" width="120" height="120">
+    </div>
+</div>
+<div class="container">
+    <h2>ログイン</h2>
     <?php if (!empty($err) && isset($err['login'])): ?>
-        <p><?php echo $err['login']; ?></p>
+        <div class="alert alert-danger"><?= htmlspecialchars($err['login'], ENT_QUOTES) ?></div>
     <?php endif; ?>
-    <form action="" method="post">
-        <div>
-            <label for="user_name">ユーザー名:</label>
-            <input type="text" id="user_name" name="user_name" value="<?php echo htmlspecialchars($user_name ?? '', ENT_QUOTES); ?>">
+    <form method="post">
+        <div class="form-group">
+            <label for="user_name">ユーザー名</label>
+            <input type="text" class="form-control" id="user_name" name="user_name" value="<?= htmlspecialchars($user_name ?? '', ENT_QUOTES) ?>" required>
             <?php if (!empty($err['user_name'])): ?>
-                <p><?php echo $err['user_name']; ?></p>
+                <div class="alert alert-danger"><?= htmlspecialchars($err['user_name'], ENT_QUOTES) ?></div>
             <?php endif; ?>
         </div>
-        <div>
-            <label for="password">パスワード:</label>
-            <input type="password" id="password" name="password">
+        <div class="form-group">
+            <label for="password">パスワード</label>
+            <input type="password" class="form-control" id="password" name="password" required>
             <?php if (!empty($err['password'])): ?>
-                <p><?php echo $err['password']; ?></p>
+                <div class="alert alert-danger"><?= htmlspecialchars($err['password'], ENT_QUOTES) ?></div>
             <?php endif; ?>
         </div>
-        <div>
-            <button type="submit">ログイン</button>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">ログイン</button>
+            <a href="registst1.php" class="btn btn-secondary ml-2">新規登録</a>
         </div>
     </form>
+</div>
 </body>
 </html>
