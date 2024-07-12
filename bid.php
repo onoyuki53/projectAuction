@@ -38,7 +38,7 @@ $stmt->close();
 if ($bid_amount < $current_price) {
     // 入札額が現在の入札額より小さい場合
     header("Location: itemdetails.php?item_id=$item_id&status=error&message=入札額が低いため入札できません");
-} elseif ($bid_amount > $max_price) {
+} elseif ($bid_amount >= $max_price) {
     // 商品の購入が完了したことを表示し、is_soldを1に更新
     $sql = "UPDATE Item SET item_price = ?, buy_user = ?, is_sold = 1 WHERE item_id = ?";
     $stmt = $conn->prepare($sql);
