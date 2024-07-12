@@ -22,7 +22,11 @@ if (!isset($_COOKIE['user_name'])) {
 }
 
 // 商品情報の取得と表示
-$sql = "SELECT Item.item_id, Item.item_name, Item.item_price, Item_Image.image_path FROM Item LEFT JOIN Item_Image ON Item.item_id = Item_Image.item_id;";
+// $sql = "SELECT Item.item_id, Item.item_name, Item.item_price, Item_Image.image_path FROM Item LEFT JOIN Item_Image ON Item.item_id = Item_Image.item_id;";
+$sql = "SELECT i.item_id, i.item_name, i.item_price, ii.image_path 
+        FROM Item i 
+        JOIN (SELECT item_id, MIN(image_path) as image_path FROM Item_Image GROUP BY item_id) ii 
+        ON i.item_id = ii.item_id";
 $result = $conn->query($sql);
 ?>
 
@@ -81,15 +85,15 @@ $result = $conn->query($sql);
     <?php
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
-                echo '<div class="product-item">';
-                echo '<a href="itemdetails.php?item_id=' . $row["item_id"] . '">';
-                echo '<div class="product-image"><img src="' . $row["image_path"] . '" alt="' . $row["item_name"] . '"></div>';
-                echo '<div class="product-info">';
-                echo '<h3>' . $row["item_name"] . '</h3>';
-                echo '<p>¥' . number_format($row["item_price"]) . '</p>';
-                echo '<p>現在の入札額: ¥' . number_format($row["item_price"]) . '</p>';
-                echo '</div>';
-                echo '</a>'; // Close the anchor tag here
+              echo '<div class="product-item">';
+              echo '<a href="itemdetails.php?item_id=' . $row["item_id"] . '">';
+              echo '<div class="product-image"><img src="' . $row["image_path"] . '" alt="' . $row["item_id"] . '"></div>';
+              echo '<div class="product-info">';
+              echo '<h3>' . $row["item_name"] . '</h3>';
+              echo '<p>¥' . number_format($row["item_price"]) . '</p>';
+              echo '<p>現在の入札額: ¥' . number_format($row["item_price"]) . '</p>';
+              echo '</div>';
+              echo '</a>'; // Close the anchor tag here
                 //   if ($logged_in) {
                 //       echo '<div class="bid-form">';
                 //       echo '<form method="POST" action="bid.php">';
