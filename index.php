@@ -74,9 +74,9 @@ $result = $conn->query($sql);
       <h2>カテゴリ</h2>
       <ul>
         <li><a href="#">腕時計</a></li>
-        <li><a href="#">ジュエリー</a></li>
-        <li><a href="#">バッグ</a></li>
-        <li><a href="#">アクセサリー</a></li>
+        <li><a href="#">鞄</a></li>
+        <li><a href="#">自転車</a></li>
+	<li><a href="#">衣類</a></li>
         <li><a href="#">その他</a></li>
       </ul>
     </div>
