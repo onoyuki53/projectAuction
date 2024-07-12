@@ -14,10 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     if ($password === '') {
         $err['password'] = 'パスワードは入力必須です。';
-    } elseif (strlen($password) < 6) {
-        $err['password'] = 'パスワードは6文字以上で入力してください。';
-    } elseif (!preg_match('/[A-Z]/', $password) || !preg_match('/[a-z]/', $password) || !preg_match('/[0-9]/', $password)) {
-        $err['password'] = 'パスワードは大文字、小文字、数字をそれぞれ含む必要があります。';
     }
     if ($password !== $password_conf) {
         $err['password_conf'] = 'パスワードが一致しません。';
@@ -32,32 +28,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $pdo = new PDO('mysql:host=localhost;dbname=auction;charset=utf8mb4', 'user1', 'passwordA1!');
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            // SQL文を準備
-            $stmt = $pdo->prepare('INSERT INTO User (`user_id`, `mail`, `password`) VALUES (:user_id, :mail, :password)');
+            // ユーザーIDで検索するSQL文を準備
+            $stmtCheckUserId = $pdo->prepare("SELECT * FROM `User` WHERE `user_id` = :user_id");
+            $stmtCheckUserId->bindParam(':user_id', $user_id, PDO::PARAM_STR);
+            $stmtCheckUserId->execute();
 
-            //パスワードをハッシュ化するプログラム
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-            // パラメータをバインド
-            $stmt->bindParam(':user_id', $user_id, PDO::PARAM_STR);
-            $stmt->bindParam(':mail', $mail_address, PDO::PARAM_STR);
-            $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
+            // 結果を確認
+            if ($stmtCheckUserId->fetch()) {
+                $err['user_id'] = 'このユーザーIDは既に使用されています。';
+            } else {
+                // パスワードをハッシュ化
+                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-            // SQL文を実行
-            $stmt->execute();
+                // ユーザー情報を挿入するSQL文を準備
+                $stmtInsertUser = $pdo->prepare("INSERT INTO `User` (`user_id`, `mail`, `password`) VALUES (:user_id, :mail, :password)");
+                $stmtInsertUser->bindParam(':user_id', $user_id, PDO::PARAM_STR);
+                $stmtInsertUser->bindParam(':mail', $mail_address, PDO::PARAM_STR);
+                $stmtInsertUser->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
 
-            // 次のステップへリダイレクト
-            header('Location: registst2.php');
-            exit;
+                // SQL文を実行
+                $stmtInsertUser->execute();
+
+                // セッションデータの設定
+                $_SESSION['user_id'] = $user_id;
+                $_SESSION['mail_address'] = $mail_address;
+                header('Location: registst2.php');
+                exit;
+            }
         } catch (PDOException $e) {
-            // エラー処理
-            $err['db'] = 'データベースエラー: '.$e->getMessage();
+            $err['db'] = 'データベースエラー: ' . $e->getMessage();
         }
-
-        $_SESSION['user_id'] = $user_id;
-        $_SESSION['password'] = $password;
-        $_SESSION['mail_address'] = $mail_address;
-        header('Location: registst2.php');
-        exit;
     }
 }
 ?>

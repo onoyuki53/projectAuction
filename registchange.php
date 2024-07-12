@@ -71,10 +71,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $err[] = "現在のパスワードが正しくありません。";
         }
     }
+    if (isset($_POST['credit_update'])) {
+        // 現在のパスワードの確認
+        $credit_password = filter_input(INPUT_POST, 'credit_password');
+        $stmt = $pdo->prepare('SELECT password FROM User WHERE user_id = :user_id');
+        $stmt->bindValue(':user_id', $login_user);
+        $stmt->execute();
+        $stored_password = $stmt->fetchColumn();
 
-    // クレジットカード情報の登録
-    if (isset($_POST['register_credit'])) {
-        // 省略
+        if (password_verify($credit_password, $stored_password)) {
+            // クレジットカード情報の更新
+            $new_credit = filter_input(INPUT_POST, 'credit');
+            if (!empty($new_credit)) {
+                $stmt = $pdo->prepare('UPDATE User_Credit SET credit = :credit WHERE user_id = :user_id');
+                $stmt->bindValue(':user_id', $login_user);
+                $stmt->bindValue(':credit', $new_credit);
+                $stmt->execute();
+                $update_success = true;
+            } else {
+                $err[] = "クレジットカード情報を入力してください。";
+            }
+        } else {
+            $err[] = "現在のパスワードが正しくありません。";
+        }
     }
 }
 
@@ -133,15 +152,15 @@ $credit_info = $stmt->fetch(PDO::FETCH_ASSOC);
         </div>
         <div class="form-group">
             <label for="current_password">現在のパスワード:</label>
-            <input type="password" id="current_password" name="current_password" class="form-control" required>
+            <input type="password" id="current_password" name="current_password" class="form-control">
         </div>
         <div class="form-group">
             <label for="new_password">新しいパスワード:</label>
-            <input type="password" id="new_password" name="new_password" class="form-control">
+            <input type="password" id="new_password" name="new_password" class="form-control" >
         </div>
         <div class="form-group">
             <label for="new_password_conf">新しいパスワード（確認用）:</label>
-            <input type="password" id="new_password_conf" name="new_password_conf" class="form-control" required>
+            <input type="password" id="new_password_conf" name="new_password_conf" class="form-control">
         </div>
         <div class="form-group">
             <label for="postal">郵便番号:</label>
@@ -156,19 +175,20 @@ $credit_info = $stmt->fetch(PDO::FETCH_ASSOC);
             <input type="text" id="phone" name="phone" class="form-control" value="<?php echo htmlspecialchars($user_add_info['phone'] ?? '', ENT_QUOTES); ?>">
         </div>
         <div>
-            <button class="btn btn-secondary" type="submit" name="update">更新</button>
+            <button class="btn btn-secondary" type="submit" name="update">基本更新</button>
         </div>
-    </form>
-    <h3 class="mt-3">クレジットカード情報</h3>
+        <h3 class="mt-3">クレジットカード情報変更</h3>
     <form action="" method="post">
         <div class="form-group">
-            <label for="credit">クレジットカード番号:</label>
-            <input type="text" id="credit" name="credit" class="form-control" value="<?php echo htmlspecialchars($credit_info['credit'] ?? '', ENT_QUOTES); ?>">
+            <label for="credit_password">現在のパスワード:</label>
+            <input type="password" id="credit_password" name="credit_password" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="credit">クレジットカード情報:</label>
+            <input type="text" id="credit" name="credit" class="form-control" value="<?php echo htmlspecialchars($credit_info['credit'] ?? '', ENT_QUOTES); ?>" required>
         </div>
         <div>
-            <button class="btn btn-secondary" type="submit" name="register_credit">登録</button>
-        </div>
-    </form>
+            <button class="btn btn-secondary" type="submit" name="credit_update">クレジットカード情報更新</button>
     <div>
     <a href="mypage.php" class="btn btn-primary mt-3">マイページに戻る</a>
     </div>

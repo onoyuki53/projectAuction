@@ -31,18 +31,12 @@ session_destroy();
 	<div class="header_logo">
             <img src="./logo_square.png" alt="Logo">
         </div>
-        <input type="text" id="k" name="k" class="form-control" placeholder="検索" required>
-        <button type="submit" class="btn btn-primary btn-block">検索</button>
     </div>
     <div class="container">
     <h1>登録完了</h1>
-    <p>以下の情報で登録が完了しました。</p>
-    <ul>
-
-    </ul>
-    <a href="login.php">ログインページへ</a>
-    <br>
-    <a href="index.php">ホームページへ</a>
+    <p>ログインをしてください。</p>
+    <a href="login.php" class="btn btn-primary">ログインページ</a>
+    <a href="index.php" class="btn btn-secondary">ホームページ</a>
     </div>
 </body>
 </html>

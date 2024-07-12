@@ -2,10 +2,10 @@
 session_start();
 
 // ステップ1からのデータがセッションにない場合は、ステップ1のページにリダイレクト
-// if (!isset($_SESSION['user_id']) || !isset($_SESSION['password']) || !isset($_SESSION['mail_address'])) {
-//     header('Location: registst1.php');
-//     exit;
-// }
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['password']) || !isset($_SESSION['mail_address'])) {
+     header('Location: registst1.php');
+     exit;
+}
 
 $err = [];
 
@@ -113,10 +113,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['password'] = '********';
             $_SESSION['phone'] = $phone;
             $_SESSION['address'] = $phone;
-
-            // セッションクリア
-            session_destroy();
-            header('Location: register_complete.php');
+            
+            header('Location: registst3.php');
             exit;
         } catch (PDOException $e) {
             $err['db'] = 'データベースエラー: ' . $e->getMessage();
@@ -173,4 +171,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </body>
 </html>
-            
