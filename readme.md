@@ -49,12 +49,13 @@ CREATE TABLE `User_Credit` (
 
 ```sql:Item Table
 CREATE TABLE `Item` (
-	`item_id` VARCHAR(64) NOT NULL DEFAULT '' COMMENT 'アイテムID',
-	`item_name` VARCHAR(255) NOT NULL DEFAULT '' COMMENT 'アイテム名',
-  `item_price` INT(7) NOT NULL DEFAULT 0 COMMENT '金額',
-  `buy_user` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '入札者',
-`item_user` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '出品者ID',
-  PRIMARY KEY (`item_id`)
+    `item_id` VARCHAR(64) NOT NULL DEFAULT '' COMMENT 'アイテムID',
+    `item_name` VARCHAR(255) NOT NULL DEFAULT '' COMMENT 'アイテム名',
+    `item_price` INT(7) NOT NULL DEFAULT 0 COMMENT '金額',
+    `max_price` INT(7) NOT NULL DEFAULT 0 COMMENT '最高金額',
+    `buy_user` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '入札者',
+    `item_user` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '出品者ID',
+    PRIMARY KEY (`item_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4;
 ```
 
