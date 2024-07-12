@@ -77,11 +77,11 @@ $logged_in = isset($_SESSION['login_user']);
                     <form method="POST" action="bid.php">
                         <input type="hidden" name="item_id" value="<?= htmlspecialchars($item["item_id"]) ?>">
                         <input type="number" name="bid_amount" placeholder="入札額" required />
-                        <button type="submit">入札</button>
+                        <button type="submit" class="btn btn-primary">入札</button>
                     </form>
                 </div>
             <?php else: ?>
-                <a href="login.php" class="login-button">ログインして入札</a>
+                <a href="login.php" class="btn btn-primary">ログインして入札</a>
             <?php endif; ?>
         </div>
     <?php else: ?>

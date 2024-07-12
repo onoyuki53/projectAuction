@@ -34,6 +34,9 @@ $item_category = ''; // カテゴリーを追加
 $item_user = $user_id;
 
 if (isset($_POST['upload'])) {
+    if (!isset($_FILES['image']['name']) || count($_FILES['image']['name']) == 0 || empty($_FILES['image']['name'][0])) {
+        $message = '少なくとも1つの画像をアップロードしてください';
+    } else {
     $item_name = $_POST['item_name'];
     $item_price = $_POST['item_price'];
     $max_price = $_POST['max_price'];
@@ -75,6 +78,7 @@ if (isset($_POST['upload'])) {
     $stmt2->execute();
 
     $message = '商品をアップロードしました';
+    }
 }
 
 ?>
@@ -108,7 +112,8 @@ if (isset($_POST['upload'])) {
 
 <?php if (isset($_POST['upload'])): ?>
     <p><?php echo $message; ?></p>
-    <p><a href="../index.php">ホームへ</a></p>
+    <a class="btn btn-primary" href="./image_add.php">出品</a>
+    <a class="btn btn-secondary" href="../index.php">ホーム</a>
 <?php else: ?>
     <form method="post" enctype="multipart/form-data">
         <div class="form-group">
