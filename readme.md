@@ -50,7 +50,7 @@ CREATE TABLE `User_Credit` (
 ```sql:Item Table
 CREATE TABLE `Item` (
     `item_id` VARCHAR(64) NOT NULL DEFAULT '' COMMENT 'アイテムID',
-    `item_name` VARCHAR(255) NOT NULL DEFAULT '' COMMENT 'アイテム名',
+    `item_name`  TEXT COMMENT 'アイテム名',
     `item_price` INT(7) NOT NULL DEFAULT 0 COMMENT '金額',
     `max_price` INT(7) NOT NULL DEFAULT 0 COMMENT '最高金額',
     `buy_user` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '入札者',
@@ -68,7 +68,7 @@ CREATE TABLE `Item_Image` (
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4;
 ```
 
-## アイテム情報表示のための仮sql登録文
+## アイテム情報表示のための仮sql登録文  
 ```sql:ItemInfo Regist
 INSERT INTO `Item` (`item_id`, `item_name`, `item_price`, `max_price`, `item_user`)
 VALUES

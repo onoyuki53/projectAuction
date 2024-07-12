@@ -118,7 +118,7 @@ if (isset($_POST['upload'])) {
     <form method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="item_name">商品名:</label>
-            <input class="form-control" type="text" name="item_name" required>
+            <input class="form-control" type="text" name="item_name" cols="60" rows="5" name="text"required>
         </div>
         <div class="form-group">
             <label for="item_price">初期価格:</label>
