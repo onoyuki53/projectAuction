@@ -4,7 +4,8 @@ session_start();
 
 // クッキーを無効にする
 if (isset($_COOKIE['user_name'])) {
-    setcookie('user_name', '', time() - 3600, '/'); // クッキーを無効にするために過去の時間に設定
+    // setcookie('user_name', '', time() - 3600, '/'); // クッキーを無効にするために過去の時間に設定
+    setcookie('user_name', $user['user_id'], time() -3600);
 }
 
 // セッションを破棄

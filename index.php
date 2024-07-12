@@ -92,6 +92,7 @@ $result = $conn->query($sql);
               echo '<h3>' . $row["item_name"] . '</h3>';
               echo '<p>¥' . number_format($row["item_price"]) . '</p>';
               echo '<p>現在の入札額: ¥' . number_format($row["item_price"]) . '</p>';
+              echo '<p style="color: red;">最高入札額: ¥' . number_format($row["max_price"]) . '</p>';
               echo '</div>';
               echo '</a>'; // Close the anchor tag here
                 //   if ($logged_in) {
