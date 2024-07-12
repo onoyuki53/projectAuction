@@ -50,7 +50,7 @@ if (isset($_POST['upload'])) {
 
         if (!empty($_FILES)) {
             $filename = $_FILES['image']['name'][$i];
-            $uploaded_path = './images/' . $item_id . '_' . $filename;
+            $uploaded_path = '../images/' . $item_id . '_' . $filename;
             $result = move_uploaded_file($_FILES['image']['tmp_name'][$i], $uploaded_path);
             if ($result) {
                 try {

@@ -135,11 +135,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="header">
 	<div class="header_logo">
         <a href="./index.php">
-            <img src="./img/logo_square.png" alt="Logo">
+            <img src="../img/logo_square.png" alt="Logo">
         </a>
         </div>
-        <input type="text" id="k" name="k" class="form-control" placeholder="検索" required>
-        <button type="submit" class="btn btn-primary btn-block">検索</button>
+
      </div>
      <div class="container">
     <h2 class="card-title text-center">ユーザー登録フォーム - ステップ2</h2>
