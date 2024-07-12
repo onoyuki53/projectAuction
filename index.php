@@ -100,7 +100,7 @@ $result = $conn->query($sql);
                 //       echo '<form method="POST" action="bid.php">';
                 //       echo '<input type="hidden" name="item_id" value="' . $row["item_id"] . '">';
                 //       echo '<input type="number" name="bid_amount" placeholder="入札額" required />';
-                //       echo '<button type="submit">入札</button>';
+                //       echo '<button typea="submit">入札</button>';
                 //       echo '</form>';
                 //       echo '</div>';
                 //   } else {
