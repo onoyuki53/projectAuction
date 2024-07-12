@@ -22,12 +22,17 @@ if (!isset($_COOKIE['user_name'])) {
 }
 
 // 商品情報の取得と表示
+$category = isset($_GET['category']) ? $_GET['category'] : '';
 // $sql = "SELECT Item.item_id, Item.item_name, Item.item_price, Item_Image.image_path FROM Item LEFT JOIN Item_Image ON Item.item_id = Item_Image.item_id;";
 $sql = "SELECT i.item_id, i.item_name, i.item_price, i.max_price, ii.image_path 
         FROM Item i 
         JOIN (SELECT item_id, MIN(image_path) as image_path FROM Item_Image GROUP BY item_id) ii 
         ON i.item_id = ii.item_id
         WHERE i.is_sold != 1";
+if ($category) {
+  $sql .= " AND i.category = '" . $conn->real_escape_string($category) . "'";
+}
+
 $result = $conn->query($sql);
 ?>
 
@@ -74,11 +79,11 @@ $result = $conn->query($sql);
     <div class="category-frame">
       <h2>カテゴリ</h2>
       <ul>
-        <li><a href="#">腕時計</a></li>
-        <li><a href="#">鞄</a></li>
-        <li><a href="#">自転車</a></li>
-	<li><a href="#">衣類</a></li>
-        <li><a href="#">その他</a></li>
+        <li><a href="?category=腕時計">腕時計</a></li>
+        <li><a href="?category=鞄">鞄</a></li>
+        <li><a href="?category=自転車">自転車</a></li>
+	<li><a href="?category=衣類">衣類</a></li>
+        <li><a href="?category=その他">その他</a></li>
       </ul>
     </div>
 
