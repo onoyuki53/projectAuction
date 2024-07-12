@@ -1,146 +1,46 @@
-<?php
-// データベース接続設定
-$dsn = 'mysql:host=localhost;dbname=auction;charset=utf8';
-$user = 'user1';
-$password = 'passwordA1!';
-
-try {
-    $pdo = new PDO($dsn, $user, $password);
-} catch (PDOException $e) {
-    echo 'データベース接続失敗: ' . $e->getMessage();
-    exit;
-}
-
-session_start();
-
-if (!isset($_SESSION['login_user'])) {
-    header('Location: login.php');
-    exit;
-}
-
-$login_user = $_SESSION['login_user'];
-$err = [];
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['update'])) {
-        $new_mail = filter_input(INPUT_POST, 'mail');
-        $new_password = filter_input(INPUT_POST, 'password');
-        $new_address = filter_input(INPUT_POST, 'address');
-        $new_phone = filter_input(INPUT_POST, 'phone');
-
-        if (!empty($new_mail)) {
-            $stmt = $pdo->prepare('UPDATE User SET mail = :mail WHERE user_id = :user_id');
-            $stmt->bindValue(':mail', $new_mail);
-            $stmt->bindValue(':user_id', $login_user);
-            $stmt->execute();
-        }
-
-        if (!empty($new_password)) {
-            $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
-            $stmt = $pdo->prepare('UPDATE User SET password = :password WHERE user_id = :user_id');
-            $stmt->bindValue(':password', $hashed_password);
-            $stmt->bindValue(':user_id', $login_user);
-            $stmt->execute();
-        }
-
-        if (!empty($new_address) || !empty($new_phone)) {
-            $stmt = $pdo->prepare('INSERT INTO UserAdd (user_id, address, phone) VALUES (:user_id, :address, :phone) ON DUPLICATE KEY UPDATE address = VALUES(address), phone = VALUES(phone)');
-            $stmt->bindValue(':user_id', $login_user);
-            $stmt->bindValue(':address', $new_address);
-            $stmt->bindValue(':phone', $new_phone);
-            $stmt->execute();
-        }
-    }
-
-    if (isset($_POST['register_credit'])) {
-        $credit = filter_input(INPUT_POST, 'credit');
-        if (!empty($credit)) {
-            // クレジットカード情報が既に存在するか確認
-            $stmt = $pdo->prepare('SELECT COUNT(*) FROM User_Credit WHERE user_id = :user_id');
-            $stmt->bindValue(':user_id', $login_user);
-            $stmt->execute();
-            $count = $stmt->fetchColumn();
-
-            if ($count > 0) {
-                // 既に存在する場合、更新
-                $stmt = $pdo->prepare('UPDATE User_Credit SET credit = :credit WHERE user_id = :user_id');
-                $stmt->bindValue(':credit', $credit);
-                $stmt->bindValue(':user_id', $login_user);
-                $stmt->execute();
-            } else {
-                // 存在しない場合、新規登録
-                $stmt = $pdo->prepare('INSERT INTO User_Credit (user_id, credit) VALUES (:user_id, :credit)');
-                $stmt->bindValue(':user_id', $login_user);
-                $stmt->bindValue(':credit', $credit);
-                $stmt->execute();
-            }
-        }
-    }
-}
-
-// ユーザー情報の取得
-$stmt = $pdo->prepare('SELECT * FROM User WHERE user_id = :user_id');
-$stmt->bindValue(':user_id', $login_user);
-$stmt->execute();
-$user_info = $stmt->fetch(PDO::FETCH_ASSOC);
-
-// ユーザー追加情報の取得
-$stmt = $pdo->prepare('SELECT * FROM UserAdd WHERE user_id = :user_id');
-$stmt->bindValue(':user_id', $login_user);
-$stmt->execute();
-$user_add_info = $stmt->fetch(PDO::FETCH_ASSOC);
-
-// クレジットカード情報の取得
-$stmt = $pdo->prepare('SELECT * FROM User_Credit WHERE user_id = :user_id');
-$stmt->bindValue(':user_id', $login_user);
-$stmt->execute();
-$credit_info = $stmt->fetch(PDO::FETCH_ASSOC);
-?>
-<!DOCTYPE HTML>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>マイページ</title>
-    <script src="https://yubinbango.github.io/yubinbango/yubinbango.js" charset="UTF-8"></script>
+    <title>ユーザー登録フォーム - ステップ1</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./registst.css" rel="stylesheet">
 </head>
 <body>
-    <h2>マイページ</h2>
-    <form action="" method="post" class="h-adr">
-        <span class="p-country-name" style="display:none;">Japan</span>
-        <div>
-            <label for="mail">メールアドレス:</label>
-            <input type="email" id="mail" name="mail" value="<?php echo htmlspecialchars($user_info['mail'], ENT_QUOTES); ?>">
-        </div>
-        <div>
-            <label for="password">新しいパスワード:</label>
-            <input type="password" id="password" name="password">
-        </div>
-        <div>
-            <label for="postal">〒:</label>
-            <input type="text" class="p-postal-code" size="8" maxlength="8" name="postal">
-        </div>
-        <div>
-            <label for="address">住所:</label>
-            <input type="text" id="address" name="address" class="p-region p-locality p-street-address p-extended-address" value="<?php echo htmlspecialchars($user_add_info['address'] ?? '', ENT_QUOTES); ?>" required>
-        </div>
-        <div>
-            <label for="phone">電話番号:</label>
-            <input type="text" id="phone" name="phone" value="<?php echo htmlspecialchars($user_add_info['phone'] ?? '', ENT_QUOTES); ?>">
-        </div>
-        <div>
-            <button type="submit" name="update">更新</button>
-        </div>
-    </form>
-    <h3>クレジットカード情報</h3>
+<div class="header">
+    <div class="header_logo">
+        <a href="./index.php">
+            <img src="./logo_square.png" alt="Logo">
+        </a>
+    </div>
+</div>
+<div class="container">
+    <h2>ユーザー登録フォーム - ステップ1</h2>
+    <?php if (!empty($err)): ?>
+        <?php foreach ($err as $e): ?>
+            <p style="color: red;"><?php echo htmlspecialchars($e, ENT_QUOTES, 'UTF-8'); ?></p>
+        <?php endforeach; ?>
+    <?php endif; ?>
     <form action="" method="post">
         <div>
-            <label for="credit">クレジットカード番号:</label>
-            <input type="text" id="credit" name="credit" value="<?php echo htmlspecialchars($credit_info['credit'] ?? '', ENT_QUOTES); ?>">
+            <label for="user_id">ユーザーID:</label>
+            <input type="text" id="user_id" name="user_id" value="<?php echo htmlspecialchars($user_id ?? '', ENT_QUOTES, 'UTF-8'); ?>" required>
         </div>
         <div>
-            <button type="submit" name="register_credit">登録</button>
+            <label for="password">パスワード:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div>
+            <label for="password_conf">パスワード（確認用）:</label>
+            <input type="password" id="password_conf" name="password_conf" required>
+        </div>
+        <div>
+            <label for="mail_address">メールアドレス:</label>
+            <input type="email" id="mail_address" name="mail_address" value="<?php echo htmlspecialchars($mail_address ?? '', ENT_QUOTES, 'UTF-8'); ?>" required>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">次へ</button>
         </div>
     </form>
-    <p><a href="mypage.php">mypageに戻る</a></p>
+</div>
 </body>
 </html>

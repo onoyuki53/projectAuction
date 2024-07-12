@@ -1,8 +1,8 @@
 <?php
 session_start();
-
+$password = $_SESSION['password'];  
 // ステップ1からのデータがセッションにない場合は、ステップ1のページにリダイレクト
-// if (!isset($_SESSION['user_id']) || !isset($_SESSION['password']) || !isset($_SESSION['mail_address'])) {
+// if ($password =='') {
 //     header('Location: registst1.php');
 //     exit;
 // }
@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_id = $_SESSION['user_id'];
     $password = $_SESSION['password'];
     $mail_address = $_SESSION['mail_address'];
-
+    
     if ($phone === '') {
         $err['phone'] = '電話番号は入力必須です。';
     } else {
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
             // UserAddテーブルにユーザー情報を挿入するSQL文を準備
-            $stmtInsertUserAdd = $pdo->prepare("INSERT INTO UserAdd (`user_id`, `address`, `phone`) VALUES (:user_id, :address, :phone)");
+            $stmtInsertUserAdd = $pdo->prepare("INSERT INTO `UserAdd` (`user_id`, `address`, `phone`) VALUES (:user_id, :address, :phone)");
             $stmtInsertUserAdd->bindParam(':user_id', $user_id, PDO::PARAM_STR);
             $stmtInsertUserAdd->bindParam(':address', $address, PDO::PARAM_STR);
             $stmtInsertUserAdd->bindParam(':phone', $phoneNoHyphen, PDO::PARAM_INT);
@@ -128,21 +128,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ユーザー登録フォーム - ステップ2</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./registst.css" rel="stylesheet">
 </head>
 <body>
-<div class="header">
-	<div class="header_logo">
-            <img src="./logo_square.png" alt="Logo">
-        </div>
-        <input type="text" id="k" name="k" class="form-control" placeholder="検索" required>
-        <button type="submit" class="btn btn-primary btn-block">検索</button>
-     </div>
-     <div class="container">
-    <h2 class="card-title text-center">ユーザー登録フォーム - ステップ2</h2>
+    <h2>ユーザー登録フォーム - ステップ2</h2>
     <?php if (!empty($err)): ?>
         <ul>
         <?php foreach ($err as $e): ?>
@@ -154,22 +143,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <script src="https://yubinbango.github.io/yubinbango/yubinbango.js" charset="UTF-8"></script>
 
         <span class="p-country-name" style="display:none;">Japan</span>
-        <div class="form-group">
+        <div>
             <label for="phone">電話番号:</label>
-            <input type="text" id="phone" name="phone" size="11" maxlength="11" class="form-control" required>
-        </div>
-        <div class="form-group">
-        <label>郵便番号:</label>
-            <input type="text" class="form-control p-postal-code" size="8" maxlength="8" name="postal">
-        </div>
-        <div class="form-group">    
-            <label for="address">住所:</label>
-            <input type="text" id="address" name="address" class="form-control p-region p-locality p-street-address p-extended-address" required>
+            <input type="text" id="phone" name="phone" size="11" maxlength="11" required>
         </div>
         <div>
-            <button type="submit" class="btn btn-primary btn-block">登録</button>
+            〒<input type="text" class="p-postal-code" size="8" maxlength="8" name="postal"><br>
+            <label for="address">住所:</label>
+            <input type="text" id="address" name="address" class="p-region p-locality p-street-address p-extended-address" required>
+        </div>
+        <div>
+            <button type="submit">登録</button>
         </div>
     </form>
-    </div>
 </body>
 </html>
+

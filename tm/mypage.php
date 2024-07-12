@@ -35,31 +35,19 @@ if (isset($_COOKIE['user_name'])) {
 <head>
     <meta charset="UTF-8">
     <title>ユーザー情報</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./registst.css" rel="stylesheet">
 </head>
 <body>
-  <div class="header">
-    <div class="header_logo">
-            <a href="./index.php">
-                <img src="./logo_square.png" alt="Logo">
-            </a>
-    </div>
-  </div>
-  <div class="container">
     <?php if ($user && $userAdd): ?>
-        <h2>ユーザー情報</h2><hr>
-        <p><b>ユーザー名: </b><?= htmlspecialchars($user['user_id'], ENT_QUOTES) ?></p><hr>
-        <p><b>メールアドレス: </b><?= htmlspecialchars($user['mail'], ENT_QUOTES) ?></p><hr>
-        <p><b>住所: </b><?= htmlspecialchars($userAdd['address'], ENT_QUOTES) ?></p><hr>
-        <p><b>電話番号: </b><?= htmlspecialchars($userAdd['phone'], ENT_QUOTES) ?></p><hr>
+        <h2>ユーザー情報</h2>
+        <p>ユーザー名: <?= htmlspecialchars($user['user_id'], ENT_QUOTES) ?></p>
+        <p>メールアドレス: <?= htmlspecialchars($user['mail'], ENT_QUOTES) ?></p>
+        <p>住所: <?= htmlspecialchars($userAdd['address'], ENT_QUOTES) ?></p>
+        <p>電話番号: <?= htmlspecialchars($userAdd['phone'], ENT_QUOTES) ?></p>
     <?php elseif ($user_id): ?>
         <p>ユーザー情報が見つかりません。</p>
     <?php else: ?>
         <p>ログインしてください。</p>
     <?php endif; ?>
-    <a href="registchange.php" class="btn btn-primary">登録情報を変更する</a>
-    <a href="index.php" class="btn btn-secondary ml-2">ホームページ</a>
-  </div>
+    <p><a href="registchange.php">登録情報を変更する</a></p>
 </body>
 </html> 

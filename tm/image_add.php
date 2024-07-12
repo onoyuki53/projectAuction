@@ -18,7 +18,7 @@ if (isset($_POST['upload'])) {
         //$image .= '.' . substr(strrchr($_FILES['image']['name'], '.'), 1); //アップロードされたファイルの拡張子を取得
         $file = './images/' . $item_id . '_' . $image;
         $pdo = connect();
-        $stmt = $pdo->prepare('INSERT INTO Item_Image (`item_id`, `image_path`) VALUES (:item_id, :images)');
+        $stmt = $pdo->prepare('INSERT INTO `Item_Image` (`item_id`, `image_path`) VALUES (:item_id, :images)');
         $stmt->bindParam(':item_id', $item_id);
         $stmt->bindParam(':images', $file);
         if (!empty($_FILES)) { //ファイルが選択されていれば$imageにファイル名を代入

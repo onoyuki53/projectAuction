@@ -28,24 +28,117 @@ $logged_in = isset($_SESSION['login_user']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>商品詳細</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./registst.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #d6d4d4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .user-actions a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 20px;
+            padding: 10px;
+            background-color: #555;
+            border-radius: 5px;
+        }
+        .user-actions a:hover {
+            background-color: #777;
+        }
+        .container {
+            padding: 20px;
+        }
+        .product-detail {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .product-info {
+            text-align: center;
+        }
+        .product-info h3 {
+            margin-top: 20px;
+        }
+        .product-info p {
+            margin-bottom: 10px;
+        }
+        .bid-form input[type="number"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100px;
+            margin-bottom: 10px;
+        }
+        .bid-form button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .bid-form button:hover {
+            background-color: #555;
+        }
+        .slideshow-container {
+            max-width: 1000px;
+            position: relative;
+        }
+        .slide {
+            display: none; /* 初期状態で非表示 */
+            width: 100%;
+            height: auto;
+        }
+        .slide img {
+            width: 100%;
+            height: auto;
+        }
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            margin-top: -22px;
+            padding: 16px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+        }
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+        .prev:hover, .next:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+
+    </style>
 </head>
 <body>
 <header>
-    <div class="header">
-        <div class="header_logo">
-            <a href="./index.php">
-                <img src="./logo_square.png" alt="Logo">
-            </a>
-        </div>
-        <div class="header_btn">
-            <?php if ($logged_in): ?>
-                <a href="./mypage.php" class="btn btn-primary">マイページ</a>
-                <a href="./logout.php" class="btn btn-secondary">ログアウト</a>
-            <?php else: ?>
-                <a href="./login.php" class="btn btn-primary">ログイン</a>
-            <?php endif; ?>
-        </div>
+    <div class="logo">
+        <a href="#">~オークション</a>
+    </div>
+    <div class="user-actions">
+        <a href="./mypage.php">マイページ</a>
+        <a href="./login.php">ログイン</a>
     </div>
 </header>
 <div class="container">
