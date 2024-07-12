@@ -121,31 +121,27 @@ phpを出品画面でアップして、
 
 ## ファイル情報ツリー
 .  
-├── a  
-├── bag_category.png  
 ├── bid.php  
-├── bike_category.png  
-├── clothes_category.png  
 ├── database.php  
-├── image //商品画像格納場所  
-│   ├── image1.jpg  
-│   ├── image2.jpg  
-│   ├── image3.jpg  
-│   ├── image4.jpg  
-│   └── image5.jpg  
-├── image_add.php  
+├── images  
+├── img  
+│   ├── bag_category.png  
+│   ├── bike_category.png  
+│   ├── clothes_category.png  
+│   ├── logo_rectangle.png  
+│   ├── logo_square.png  
+│   └── watch_category.png  
 ├── index.php  
 ├── itemdetails.php  
 ├── login.php  
-├── mypage.php  
+├── logout.php  
 ├── readme.md  
-├── registchange.php  
-├── register_complete.php  
-├── registst1.php  
-├── registst2.php  
-├── temp  
-│   ├── bid_process.php  
-│   ├── login1.php  
-│   └── regist.php  
-├── test.php  
-└── watch_category.png  
+├── regist  
+│   ├── image_add.php  
+│   ├── mypage.php  
+│   ├── registchange.php  
+│   ├── register_complete.php  
+│   ├── registst1.php  
+│   ├── registst2.php  
+│   └── registst3.php  
+└── registst.css  
