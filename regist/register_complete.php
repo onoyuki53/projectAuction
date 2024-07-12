@@ -24,19 +24,21 @@ session_destroy();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ユーザー登録完了</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./registst.css" rel="stylesheet">
+    <link href="../registst.css" rel="stylesheet">
 </head>
 <body>
 	<div class="header">
 	<div class="header_logo">
-            <img src="./logo_square.png" alt="Logo">
+        <a href="./index.php">
+            <img src="./img/logo_square.png" alt="Logo">
+        </a>
         </div>
     </div>
     <div class="container">
     <h1>登録完了</h1>
     <p>ログインをしてください。</p>
-    <a href="login.php" class="btn btn-primary">ログインページ</a>
-    <a href="index.php" class="btn btn-secondary">ホームページ</a>
+    <a href="../login.php" class="btn btn-primary">ログインページ</a>
+    <a href="../index.php" class="btn btn-secondary">ホームページ</a>
     </div>
 </body>
 </html>

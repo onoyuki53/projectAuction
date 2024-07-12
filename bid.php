@@ -15,7 +15,7 @@ if ($conn->connect_error) {
 
 // クッキーが設定されているか確認
 if (!isset($_COOKIE['user_name'])) {
-    header("Location: login.php");
+    header("Location: ./regist/login.php");
     exit();
 }
 

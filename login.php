@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // クッキーを設定（有効期限は30日）
             setcookie('user_name', $user['user_id'], time() + (30 * 24 * 60 * 60));
-            header('Location: mypage.php');
+            header('Location: ./regist/mypage.php');
             exit;
         } else {
             $err['login'] = 'ログインに失敗しました。';
@@ -63,7 +63,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 <div class="header">
     <div class="header_logo">
-        <img src="./logo_square.png" alt="Logo" width="120" height="120">
+    <a href="./index.php">
+            <img src="./img/logo_square.png" alt="Logo">
+        </a>
     </div>
 </div>
 <div class="container">
@@ -88,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary">ログイン</button>
-            <a href="registst1.php" class="btn btn-secondary ml-2">新規登録</a>
+            <a href="./regist/registst1.php" class="btn btn-secondary ml-2">新規登録</a>
         </div>
     </form>
 </div>

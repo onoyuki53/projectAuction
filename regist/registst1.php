@@ -68,12 +68,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ユーザー登録フォーム - ステップ1</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./registst.css" rel="stylesheet">
+    <link href="../registst.css" rel="stylesheet">
 </head>
 <body>
      <div class="header">
 	<div class="header_logo">
-            <img src="./logo_square.png" alt="Logo">
+        <a href="./index.php">
+            <img src="./img/logo_square.png" alt="Logo">
+        </a>
         </div>
      </div>
 	<div class="container">

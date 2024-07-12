@@ -123,12 +123,14 @@ $credit_info = $stmt->fetch(PDO::FETCH_ASSOC);
     <title>ユーザー情報変更</title>
     <script src="https://yubinbango.github.io/yubinbango/yubinbango.js" charset="UTF-8"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./registst.css" rel="stylesheet">
+    <link href="../registst.css" rel="stylesheet">
 </head>
 <body>
   <div class="header">
     <div class="header_logo">
-        <img src="./logo_square.png" alt="Logo">
+    <a href="./index.php">
+            <img src="./img/logo_square.png" alt="Logo">
+        </a>
     </div>
   </div>
   <div class="container">

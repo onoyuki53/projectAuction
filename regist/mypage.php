@@ -36,13 +36,13 @@ if (isset($_COOKIE['user_name'])) {
     <meta charset="UTF-8">
     <title>ユーザー情報</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./registst.css" rel="stylesheet">
+    <link href="../registst.css" rel="stylesheet">
 </head>
 <body>
   <div class="header">
     <div class="header_logo">
-            <a href="./index.php">
-                <img src="./logo_square.png" alt="Logo">
+            <a href="../index.php">
+                <img src="../img/logo_square.png" alt="Logo">
             </a>
     </div>
   </div>
@@ -59,7 +59,7 @@ if (isset($_COOKIE['user_name'])) {
         <p>ログインしてください。</p>
     <?php endif; ?>
     <a href="registchange.php" class="btn btn-primary">登録情報を変更する</a>
-    <a href="index.php" class="btn btn-secondary ml-2">ホームページ</a>
+    <a href="../index.php" class="btn btn-secondary ml-2">ホームページ</a>
   </div>
 </body>
 </html> 

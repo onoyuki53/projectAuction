@@ -49,12 +49,12 @@ $result = $conn->query($sql);
     <div class="header">
 	    <div class="header_logo">
         <a href="./index.php">
-            <img src="./logo_square.png" alt="Logo">
+            <img src="./img/logo_square.png" alt="Logo">
         </a>
         </div>
         <div class="header_btn">
          <?php if ($logged_in): ?>
-      	   <a href="./mypage.php" class="btn btn-primary">マイページ</a>
+      	   <a href="./regist/mypage.php" class="btn btn-primary">マイページ</a>
       	   <a href="./logout.php" class="btn btn-secondary">ログアウト</a>
          <?php else: ?>
            <a href="./login.php" class="btn btn-primary">ログイン</a>
@@ -65,7 +65,7 @@ $result = $conn->query($sql);
  <div class="container">
  </div>
   <div class="category-slider">
-    <img src="watch_category.png" alt="カテゴリ1" height="500">
+    <img src="./img/watch_category.png" alt="カテゴリ1" height="500">
   </div>
 
   <div class="search-box-container">
@@ -126,16 +126,16 @@ $result = $conn->query($sql);
   <div class="slideshow-container">
     <p>他のカテゴリー</p>
     <div class="slide">
-      <img src="bag_category.png" alt="Image 1">
+      <img src="./img/bag_category.png" alt="Image 1">
     </div>
     <div class="slide">
-      <img src="bike_category.png" alt="Image 2">
+      <img src="./img/bike_category.png" alt="Image 2">
     </div>
     <div class="slide">
-      <img src="clothes_category.png" alt="Image 3">
+      <img src="./img/clothes_category.png" alt="Image 3">
     </div>
     <div class="slide">
-        <img src="watch_category.png" alt="Image 3">
+        <img src="./img/watch_category.png" alt="Image 3">
     </div>
 
     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -144,7 +144,9 @@ $result = $conn->query($sql);
 
   <script src="script.js"></script>
   </div>
-
+  <div class="fixed-button">
+    <a href="./regist/image_add.php" class="btn btn-success">出品</a>
+  </div>
   <script>
 let slideIndex = 1;
 showSlides(slideIndex);

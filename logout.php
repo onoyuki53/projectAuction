@@ -25,7 +25,9 @@ session_destroy(); // セッションを破壊
 <body>
      <div class="header">
 	<div class="header_logo">
-            <img src="./logo_square.png" alt="Logo">
+    <a href="./index.php">
+            <img src="./img/logo_square.png" alt="Logo">
+        </a>
         </div>
      </div>
     <div class="container">

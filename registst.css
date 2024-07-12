@@ -37,6 +37,7 @@ body {
     justify-content: space-between;
     margin-bottom: 20px;
     background-color: #000000;
+    z-index: 1000;
 }
 
 .header_logo img {
@@ -330,3 +331,30 @@ footer a:hover {
         opacity: 1
     }
 }
+
+
+.fixed-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000; /* 必要に応じて適切なz-indexを設定してください */
+  }
+
+  .fixed-button a.btn {
+    display: inline-block;
+    width: 120px; /* ボタンの幅を固定 */
+    height: 120px; /* ボタンの高さを固定 */
+    padding: 20px; /* ボタンのパディング */
+    font-size: 18px; /* ボタンのテキストサイズ */
+    line-height: 80px; /* ボタンの中央寄せのための行の高さ */
+    background-color: #28a745; /* ボタンの背景色 */
+    color: #fff; /* ボタンのテキスト色 */
+    text-align: center; /* テキストの中央寄せ */
+    text-decoration: none; /* リンクの下線を消す */
+    border-radius: 50%; /* 完全な丸にするための半径 */
+    transition: background-color 0.3s ease; /* ホバー時のアニメーション */
+  }
+
+  .fixed-button a.btn:hover {
+    background-color: #218838; /* ホバー時の背景色 */
+  }

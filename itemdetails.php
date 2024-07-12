@@ -35,12 +35,12 @@ $logged_in = isset($_SESSION['login_user']);
     <div class="header">
         <div class="header_logo">
             <a href="./index.php">
-                <img src="./logo_square.png" alt="Logo">
+                <img src="./img/logo_square.png" alt="Logo">
             </a>
         </div>
         <div class="header_btn">
             <?php if ($logged_in): ?>
-                <a href="./mypage.php" class="btn btn-primary">マイページ</a>
+                <a href="./regist/mypage.php" class="btn btn-primary">マイページ</a>
                 <a href="./logout.php" class="btn btn-secondary">ログアウト</a>
             <?php else: ?>
                 <a href="./login.php" class="btn btn-primary">ログイン</a>
