@@ -37,7 +37,6 @@ body {
     justify-content: space-between;
     margin-bottom: 20px;
     background-color: #000000;
-    z-index: 1000;
 }
 
 .header_logo img {
