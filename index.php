@@ -23,7 +23,7 @@ if (!isset($_COOKIE['user_name'])) {
 
 // 商品情報の取得と表示
 // $sql = "SELECT Item.item_id, Item.item_name, Item.item_price, Item_Image.image_path FROM Item LEFT JOIN Item_Image ON Item.item_id = Item_Image.item_id;";
-$sql = "SELECT i.item_id, i.item_name, i.item_price, ii.image_path 
+$sql = "SELECT i.item_id, i.item_name, i.item_price, i.max_price, ii.image_path 
         FROM Item i 
         JOIN (SELECT item_id, MIN(image_path) as image_path FROM Item_Image GROUP BY item_id) ii 
         ON i.item_id = ii.item_id";
@@ -92,7 +92,7 @@ $result = $conn->query($sql);
               echo '<h3>' . $row["item_name"] . '</h3>';
               echo '<p>¥' . number_format($row["item_price"]) . '</p>';
               echo '<p>現在の入札額: ¥' . number_format($row["item_price"]) . '</p>';
-              echo '<p style="color: red;">最高入札額: ¥' . number_format($row["max_price"]) . '</p>';
+              echo '<p style="color: red;">即決価格: ¥' . number_format($row["max_price"]) . '</p>';
               echo '</div>';
               echo '</a>'; // Close the anchor tag here
                 //   if ($logged_in) {

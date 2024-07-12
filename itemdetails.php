@@ -69,6 +69,8 @@ $logged_in = isset($_SESSION['login_user']);
                 <h3><?= htmlspecialchars($item["item_name"]) ?></h3>
                 <p>¥<?= number_format($item["item_price"]) ?></p>
                 <p>現在の入札額: ¥<?= number_format($item["item_price"]) ?></p>
+                <p style="color: red;">即決価格: ¥<?php echo number_format($item['max_price']); ?></p>
+
             </div>
             <?php if ($logged_in): ?>
                 <div class="bid-form">

@@ -275,6 +275,7 @@ footer a:hover {
 
 /*カテゴリースライド*/
 .slideshow-container {
+    margin-top: 20px;
     max-width: 1000px;
     position: relative;
     margin: auto;
