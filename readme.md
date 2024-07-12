@@ -43,7 +43,7 @@ CREATE TABLE `UserAdd` (
 ```sql:User_Credit Table
 CREATE TABLE `User_Credit` (
     `user_id` VARCHAR(32) NOT NULL DEFAULT '' COMMENT 'ユーザID',
-    `credit` INT(16) DEFAULT NULL COMMENT 'クレジット番号'
+    `credit` VARCHAR(16) DEFAULT NULL COMMENT 'クレジット番号'
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4;
 ```
 
