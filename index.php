@@ -26,7 +26,8 @@ if (!isset($_COOKIE['user_name'])) {
 $sql = "SELECT i.item_id, i.item_name, i.item_price, i.max_price, ii.image_path 
         FROM Item i 
         JOIN (SELECT item_id, MIN(image_path) as image_path FROM Item_Image GROUP BY item_id) ii 
-        ON i.item_id = ii.item_id";
+        ON i.item_id = ii.item_id
+        WHERE i.is_sold != 1";
 $result = $conn->query($sql);
 ?>
 
