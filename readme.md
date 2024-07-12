@@ -55,6 +55,7 @@ CREATE TABLE `Item` (
     `max_price` INT(7) NOT NULL DEFAULT 0 COMMENT '最高金額',
     `buy_user` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '入札者',
     `item_user` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '出品者ID',
+    `is_sold` TINYINT(1) NOT NULL DEFAULT 0 COMMENT '売れたか売れてないかのフラグ',
     PRIMARY KEY (`item_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4;
 ```
