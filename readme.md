@@ -68,12 +68,12 @@ CREATE TABLE `Item_Image` (
 
 ## アイテム情報表示のための仮sql登録文
 ```sql:ItemInfo Regist
-INSERT INTO `Item` (`item_id`, `item_name`, `item_price`, `item_user`)
+INSERT INTO `Item` (`item_id`, `item_name`, `item_price`, `max_price`, `item_user`)
 VALUES
-('item001', '商品A', 1000, 'user001'),
-('item002', '商品B', 2500, 'user002'),
-('item003', '商品C', 500, 'user001'),
-('item004', '商品D', 8000, 'user003');
+('item001', '商品A', 1000,5000 ,'user001'),
+('item002', '商品B', 2500,10000 ,'user002'),
+('item003', '商品C', 500, 15000,'user004'),
+('item004', '商品D', 8000, ,'user003');
 ```
 
 ```sql:Item_Image Regist
@@ -84,6 +84,15 @@ VALUES
 ('item002', './image/image3.png'),
 ('item003', './image/image4.png'),
 ('item004', './image/image5.png');
+```
+
+```sql:Item table 削除
+drop table Item;
+```
+
+
+```sql:Item_Image table 削除
+drop table Item_Image;
 ```
 
 
