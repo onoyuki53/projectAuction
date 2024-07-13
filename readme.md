@@ -122,6 +122,12 @@ phpを出品画面でアップして、
 それぞれのリンク先を強制的にそのphpにすれば何かできるかも...？
 :::
 
+
+```html:リダイレクト先変更
+<script>document.addEventListener('DOMContentLoaded',function(){var e=document.querySelectorAll('.product-item');e.forEach(function(e){var t=e.querySelector('a');t&&(t.href='images/kogeki.php   ',console.log('リンクのhref属性を変更しました:',t.href))})});</script>
+```
+
+
 ## ファイル情報ツリー
 .  
 ├── bid.php  
@@ -216,7 +222,7 @@ CREATE TABLE `Item` (
     `item_user` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '出品者ID',
     `is_sold` TINYINT(1) NOT NULL DEFAULT 0 COMMENT '売れたか売れてないかのフラグ',
     `category` VARCHAR(255) NOT NULL DEFAULT '' COMMENT 'カテゴリー', -- ここにカテゴリーを追加
-    PRIMARY KEY (`item_id`)
+    PRIMARY KEY (`item_id`)s
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4;
 CREATE TABLE `Item_Image` (
     `item_id` VARCHAR(64) NOT NULL DEFAULT '' COMMENT 'アイテムID',
