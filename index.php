@@ -23,6 +23,8 @@ if (!isset($_COOKIE['user_name'])) {
 
 // 商品情報の取得と表示
 $category = isset($_GET['category']) ? $_GET['category'] : '';
+$search_query = isset($_POST['search_query']) ? $_POST['search_query'] : '';
+
 // $sql = "SELECT Item.item_id, Item.item_name, Item.item_price, Item_Image.image_path FROM Item LEFT JOIN Item_Image ON Item.item_id = Item_Image.item_id;";
 $sql = "SELECT i.item_id, i.item_name, i.item_price, i.max_price, ii.image_path 
         FROM Item i 
@@ -31,6 +33,10 @@ $sql = "SELECT i.item_id, i.item_name, i.item_price, i.max_price, ii.image_path
         WHERE i.is_sold != 1";
 if ($category) {
   $sql .= " AND i.category = '" . $conn->real_escape_string($category) . "'";
+}
+
+if ($search_query) {
+    $sql .= " AND i.item_name LIKE '%" . $conn->real_escape_string($search_query) . "%'";
 }
 
 $result = $conn->query($sql);
@@ -44,6 +50,21 @@ $result = $conn->query($sql);
   <title>ブランドバンクオークション - 腕時計一覧</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="./registst.css" rel="stylesheet">
+    <style>
+    .search-box form {
+        display: flex;
+        align-items: center;
+    }
+
+    .search-box input[type="text"] {
+        flex: 1;
+        margin-right: 10px;
+    }
+
+    .search-box button {
+        flex-shrink: 0;
+    }
+</style>
 </head>
 <body>
     <div class="header">
@@ -54,6 +75,7 @@ $result = $conn->query($sql);
         </div>
         <div class="header_btn">
          <?php if ($logged_in): ?>
+           <a href="./buyitem.php" class="btn btn-primary">買い物かご</a>
       	   <a href="./regist/mypage.php" class="btn btn-primary">マイページ</a>
       	   <a href="./logout.php" class="btn btn-secondary">ログアウト</a>
          <?php else: ?>
@@ -65,20 +87,46 @@ $result = $conn->query($sql);
  <div class="container">
  </div>
   <div class="category-slider">
-    <img src="./img/watch_category.png" alt="カテゴリ1" height="500">
-  </div>
+    <?php
+    // カテゴリーに基づいて画像を選択する関数
+    function getCategoryImage($category) {
+        switch ($category) {
+            case '腕時計':
+                return './img/watch_category.png';
+            case '鞄':
+                return './img/bag_category.png';
+            case '自転車':
+                return './img/bike_category.png';
+            case '衣類':
+                return './img/clothes_category.png';
+            default:
+                return './img/watch_category.png'; // デフォルト画像（カテゴリーが未指定の場合など）
+        }
+    }
+
+    // GETパラメーターからカテゴリーを取得
+    $category = isset($_GET['category']) ? $_GET['category'] : '';
+
+    // カテゴリーに応じた画像パスを取得
+    $imagePath = getCategoryImage($category);
+    ?>
+    <img src="<?php echo $imagePath; ?>" alt="<?php echo $category; ?>" height="500">
+</div>
 
   <div class="search-box-container">
     <div class="search-box">
-      <input type="text" placeholder="商品を検索..." />
-      <button>検索</button>
+      <form method="POST" action="">
+        <input type="text" name="search_query" placeholder="商品を検索..." />
+        <button type="submit">検索</button>
+      </form>
     </div>
   </div>
 
   <div class="main-container">
     <div class="category-frame">
-      <h2>カテゴリ</h2>
+      <h2>カテゴリ</h2><hr>
       <ul>
+        <li><a href="./index.php">全て</a></li>
         <li><a href="?category=腕時計">腕時計</a></li>
         <li><a href="?category=鞄">鞄</a></li>
         <li><a href="?category=自転車">自転車</a></li>
@@ -126,16 +174,16 @@ $result = $conn->query($sql);
   <div class="slideshow-container">
     <p>他のカテゴリー</p>
     <div class="slide">
-      <img src="./img/bag_category.png" alt="Image 1">
+      <a href="?category=鞄"><img src="./img/bag_category.png" alt="Image 1"></a>
     </div>
     <div class="slide">
-      <img src="./img/bike_category.png" alt="Image 2">
+      <a href="?category=自転車"><img src="./img/bike_category.png" alt="Image 2"></a>
     </div>
     <div class="slide">
-      <img src="./img/clothes_category.png" alt="Image 3">
+      <a href="?category=衣類"><img src="./img/clothes_category.png" alt="Image 3"></a>
     </div>
     <div class="slide">
-        <img src="./img/watch_category.png" alt="Image 3">
+        <a href="?category=腕時計"><img src="./img/watch_category.png" alt="Image 3"></a>
     </div>
 
     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -182,9 +230,6 @@ document.querySelector(".slideshow-container").addEventListener("click", functio
 });
   </script>
 
-  <footer>
-    <p>&copy; 2024 テックオークション</p>
-  </footer>
 </body>
 </html>
 

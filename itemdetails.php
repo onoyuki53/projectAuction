@@ -20,6 +20,7 @@ $stmt_images->execute();
 $images = $stmt_images->fetchAll(PDO::FETCH_ASSOC);
 
 $logged_in = isset($_SESSION['login_user']);
+$logged_in_user = $_SESSION['login_user'] ?? null; // ログイン中のユーザーIDを取得
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -69,10 +70,13 @@ $logged_in = isset($_SESSION['login_user']);
                 <h3><?= htmlspecialchars($item["item_name"]) ?></h3>
                 <p>¥<?= number_format($item["item_price"]) ?></p>
                 <p>現在の入札額: ¥<?= number_format($item["item_price"]) ?></p>
-                <p style="color: red;">即決価格: ¥<?php echo number_format($item['max_price']); ?></p>
-
+                <p style="color: red;">即決価格: ¥<?= number_format($item['max_price']); ?></p>
+                
+                <?php if ($logged_in_user === $item['item_user']): ?>
+                    <p style="color: green;">これはあなたの商品です</p>
+                <?php endif; ?>
             </div>
-            <?php if ($logged_in): ?>
+            <?php if ($logged_in && $logged_in_user !== $item['item_user']): ?>
                 <div class="bid-form">
                     <form method="POST" action="bid.php">
                         <input type="hidden" name="item_id" value="<?= htmlspecialchars($item["item_id"]) ?>">
@@ -80,7 +84,7 @@ $logged_in = isset($_SESSION['login_user']);
                         <button type="submit" class="btn btn-primary">入札</button>
                     </form>
                 </div>
-            <?php else: ?>
+            <?php elseif (!$logged_in): ?>
                 <a href="login.php" class="btn btn-primary">ログインして入札</a>
             <?php endif; ?>
         </div>

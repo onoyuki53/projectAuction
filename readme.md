@@ -222,8 +222,8 @@ CREATE TABLE `Item` (
     `item_user` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '出品者ID',
     `is_sold` TINYINT(1) NOT NULL DEFAULT 0 COMMENT '売れたか売れてないかのフラグ',
     `category` VARCHAR(255) NOT NULL DEFAULT '' COMMENT 'カテゴリー', -- ここにカテゴリーを追加
-    PRIMARY KEY (`item_id`)s
-) ENGINE=INNODB DEFAULT CHARSET=utf8mb4;
+    PRIMARY KEY (`item_id`)
+    ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4;
 CREATE TABLE `Item_Image` (
     `item_id` VARCHAR(64) NOT NULL DEFAULT '' COMMENT 'アイテムID',
     `image_path` VARCHAR(255) NOT NULL DEFAULT ''
