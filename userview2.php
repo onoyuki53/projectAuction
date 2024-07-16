@@ -74,4 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="submit" value="実行">
     </form>
 </body>
+<footer>
+    <p>&copy; 2023 ブランドバンクオークション</p>
+</footer>
 </html>

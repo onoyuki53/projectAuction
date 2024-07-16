@@ -162,4 +162,8 @@ if (isset($_POST['upload'])) {
 <?php endif; ?>
 </div>
 </body>
+<br>
+<footer>
+    <p>&copy; 2023 ブランドバンクオークション</p>
+</footer>
 </html>

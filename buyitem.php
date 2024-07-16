@@ -80,4 +80,7 @@ $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <?php endif; ?>
 </div>
 </body>
+<footer>
+    <p>&copy; 2023 ブランドバンクオークション</p>
+</footer>
 </html>

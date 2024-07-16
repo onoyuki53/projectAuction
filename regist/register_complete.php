@@ -41,4 +41,8 @@ session_destroy();
     <a href="../index.php" class="btn btn-secondary">ホームページ</a>
     </div>
 </body>
+<br>
+<footer>
+    <p>&copy; 2023 ブランドバンクオークション</p>
+</footer>
 </html>

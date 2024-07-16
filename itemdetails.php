@@ -92,9 +92,7 @@ $logged_in_user = $_SESSION['login_user'] ?? null; // ログイン中のユー�
         <p>商品が見つかりませんでした。</p>
     <?php endif; ?>
 </div>
-<footer>
-    <p>&copy; 2023 ブランドバンクオークション</p>
-</footer>
+
 <script>
     let slideIndex = 1;
     showSlides(slideIndex);
@@ -125,4 +123,7 @@ $logged_in_user = $_SESSION['login_user'] ?? null; // ログイン中のユー�
     });
 </script>
 </body>
+<footer>
+    <p>&copy; 2023 ブランドバンクオークション</p>
+</footer>
 </html>

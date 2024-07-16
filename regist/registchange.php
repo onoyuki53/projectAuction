@@ -128,7 +128,7 @@ $credit_info = $stmt->fetch(PDO::FETCH_ASSOC);
 <body>
   <div class="header">
     <div class="header_logo">
-    <a href="./index.php">
+    <a href="../index.php">
             <img src="../img/logo_square.png" alt="Logo">
         </a>
     </div>
@@ -196,4 +196,8 @@ $credit_info = $stmt->fetch(PDO::FETCH_ASSOC);
     </div>
   </div>
 </body>
+<br>
+<footer>
+    <p>&copy; 2023 ブランドバンクオークション</p>
+</footer>
 </html>

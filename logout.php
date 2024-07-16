@@ -38,5 +38,8 @@ session_destroy(); // セッションを破壊
         </div>
     </div>
 </body>
+<footer>
+    <p>&copy; 2023 ブランドバンクオークション</p>
+</footer>
 </html>
 

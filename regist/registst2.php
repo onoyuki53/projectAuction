@@ -171,4 +171,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
     </div>
 </body>
+<br>
+<footer>
+    <p>&copy; 2023 ブランドバンクオークション</p>
+</footer>
 </html>

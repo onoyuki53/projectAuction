@@ -63,4 +63,8 @@ if (isset($_COOKIE['user_name'])) {
     <a href="../seller.php" class="btn btn-primary">出品一覧</a>
   </div>
 </body>
+<br>
+<footer>
+    <p>&copy; 2023 ブランドバンクオークション</p>
+</footer>
 </html> 
