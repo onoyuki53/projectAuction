@@ -1,5 +1,3 @@
-bid.php
-
 <?php
 // データベース接続設定
 $servername = "localhost";
@@ -37,7 +35,7 @@ $stmt->bind_result($current_price, $max_price);
 $stmt->fetch();
 $stmt->close();
 
-if ($bid_amount < $current_price) {
+if ($bid_amount <= $current_price) {
     // 入札額が現在の入札額より小さい場合
     header("Location: itemdetails.php?item_id=$item_id&status=error&message=入札額が低いため入札できません");
 } elseif ($bid_amount > $max_price) {
@@ -136,9 +134,9 @@ if ($bid_amount < $current_price) {
     header("Location: index.php?status=success&message=商品の購入が完了しました");
 } else {
     // 入札額が現在の入札額より大きく、即決価格より小さい場合は入札を更新
-    $sql = "UPDATE Item SET item_price = ? WHERE item_id = ?";
+    $sql = "UPDATE Item SET item_price = ?, buy_user = ? WHERE item_id = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ds", $bid_amount, $item_id);
+    $stmt->bind_param("dss", $bid_amount, $user_id, $item_id);
     $stmt->execute();
     $stmt->close();
 

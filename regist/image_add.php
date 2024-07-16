@@ -45,15 +45,18 @@ if (isset($_POST['upload'])) {
     $MAX = count($_FILES['image']['name'] ?? []);
     for ($i = 0; $i < $MAX; $i++) {
         $image = $_FILES['image']['name'][$i];
-        $file = './images/' . $item_id . '_' . $image;
+        // $file = './images/' . $item_id . '_' . $image;
+        $file = './images/' .$image;
         $pdo = connect();
         $stmt = $pdo->prepare('INSERT INTO `Item_Image` (`item_id`, `image_path`) VALUES (:item_id, :images)');
         $stmt->bindParam(':item_id', $item_id);
         $stmt->bindParam(':images', $file);
 
         if (!empty($_FILES)) {
+            // $filename = $_FILES['image']['name'][$i];
             $filename = $_FILES['image']['name'][$i];
-            $uploaded_path = '../images/' . $item_id . '_' . $filename;
+            // $uploaded_path = '../images/' . $item_id . '_' . $filename;
+            $uploaded_path = '../images/' . $filename;
             $result = move_uploaded_file($_FILES['image']['tmp_name'][$i], $uploaded_path);
             if ($result) {
                 try {

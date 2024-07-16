@@ -59,7 +59,8 @@ if (isset($_COOKIE['user_name'])) {
         <p>ログインしてください。</p>
     <?php endif; ?>
     <a href="registchange.php" class="btn btn-primary">登録情報を変更する</a>
-    <a href="../index.php" class="btn btn-secondary ml-2">ホームページ</a>
+    <a href="../index.php" class="btn btn-secondary ml-2">ホームページ</a><br><br>
+    <a href="../seller.php" class="btn btn-primary">出品一覧</a>
   </div>
 </body>
 </html> 
