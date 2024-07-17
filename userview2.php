@@ -58,10 +58,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <div class="container">
-        <h1>SQL Query Executor</h1>
+        <h1>ユーザー検索</h1>
         <form method="post" class="mb-4">
             <div class="form-group">
-                <label for="user_input">ユーザーIDまたはSQL文を入力してください:</label>
+                <label for="user_input">ユーザーIDで検索してください</label>
                 <textarea id="user_input" name="user_input" rows="4" cols="50" class="form-control"></textarea>
             </div>
             <input type="submit" value="実行" class="btn btn-primary">
