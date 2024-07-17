@@ -120,4 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_item'])) {
     <?php endif; ?>
 </div>
 </body>
+<footer>
+    <p>&copy; 2024 Tech Auction @Canva</p>
+</footer>
 </html>

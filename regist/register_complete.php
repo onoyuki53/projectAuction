@@ -43,6 +43,6 @@ session_destroy();
 </body>
 <br>
 <footer>
-    <p>&copy; 2023 ブランドバンクオークション</p>
+    <p>&copy; 2024 Tech Auction @Canva</p>
 </footer>
 </html>

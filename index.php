@@ -133,6 +133,9 @@ $result = $conn->query($sql);
 	<li><a href="?category=衣類">衣類</a></li>
         <li><a href="?category=その他">その他</a></li>
       </ul>
+      <form method="POST" action="./userview2.php">
+        <button type="submit" class="btn btn-secondary">ユーザー検索ページへ</button>
+      </form>
     </div>
 
     <div class="product-list">
@@ -189,7 +192,9 @@ $result = $conn->query($sql);
     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
     <a class="next" onclick="plusSlides(1)">&#10095;</a>
   </div>
-
+  <footer>
+    <p>&copy; 2024 Tech Auction @Canva</p>
+</footer>
   <script src="script.js"></script>
   </div>
   <div class="fixed-button">

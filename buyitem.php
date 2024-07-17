@@ -81,6 +81,6 @@ $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </div>
 </body>
 <footer>
-    <p>&copy; 2023 ブランドバンクオークション</p>
+    <p>&copy; 2024 Tech Auction @Canva</p>
 </footer>
 </html>

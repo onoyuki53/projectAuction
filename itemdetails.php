@@ -124,6 +124,6 @@ $logged_in_user = $_SESSION['login_user'] ?? null; // ログイン中のユー�
 </script>
 </body>
 <footer>
-    <p>&copy; 2023 ブランドバンクオークション</p>
+    <p>&copy; 2024 Tech Auction @Canva</p>
 </footer>
 </html>

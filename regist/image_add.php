@@ -164,6 +164,6 @@ if (isset($_POST['upload'])) {
 </body>
 <br>
 <footer>
-    <p>&copy; 2023 ブランドバンクオークション</p>
+    <p>&copy; 2024 Tech Auction @Canva</p>
 </footer>
 </html>

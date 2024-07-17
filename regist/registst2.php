@@ -134,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 <div class="header">
 	<div class="header_logo">
-        <a href="./index.php">
+        <a href="../index.php">
             <img src="../img/logo_square.png" alt="Logo">
         </a>
         </div>
@@ -173,6 +173,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </body>
 <br>
 <footer>
-    <p>&copy; 2023 ブランドバンクオークション</p>
+    <p>&copy; 2024 Tech Auction @Canva</p>
 </footer>
 </html>

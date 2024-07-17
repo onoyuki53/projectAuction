@@ -39,7 +39,7 @@ session_destroy(); // セッションを破壊
     </div>
 </body>
 <footer>
-    <p>&copy; 2023 ブランドバンクオークション</p>
+    <p>&copy; 2024 Tech Auction @Canva</p>
 </footer>
 </html>
 
