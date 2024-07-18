@@ -30,7 +30,7 @@ session_destroy();
 	<div class="header">
 	<div class="header_logo">
         <a href="./index.php">
-            <img src="./img/logo_square.png" alt="Logo">
+            <img src="../img/logo_square.png" alt="Logo">
         </a>
         </div>
     </div>

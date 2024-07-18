@@ -76,7 +76,7 @@ $logged_in_user = $_SESSION['login_user'] ?? null; // ログイン中のユー�
                     <p style="color: green;">これはあなたの商品です</p>
                 <?php endif; ?>
             </div>
-            <?php if ($logged_in && $logged_in_user !== $item['item_user']): ?>
+            <?php if ($logged_in && $logged_in_user !== $item['item_user'] && $item['item_price'] !== $item['max_price']): ?>
                 <div class="bid-form">
                     <form method="POST" action="bid.php">
                         <input type="hidden" name="item_id" value="<?= htmlspecialchars($item["item_id"]) ?>">
@@ -86,6 +86,9 @@ $logged_in_user = $_SESSION['login_user'] ?? null; // ログイン中のユー�
                 </div>
             <?php elseif (!$logged_in): ?>
                 <a href="login.php" class="btn btn-primary">ログインして入札</a>
+            <?php endif; ?>
+            <?php if ($logged_in && $item['item_price'] === $item['max_price']): ?>
+              <p style="color: red;">この商品は売却済みです</p>
             <?php endif; ?>
         </div>
     <?php else: ?>

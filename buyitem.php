@@ -1,5 +1,3 @@
-buyitem.php
-
 <?php
 /* 購入商品表示 */
 
@@ -22,7 +20,10 @@ if (!isset($_COOKIE['user_name'])) {
 $pdo = connect();
 
 // 購入した商品の情報を取得
-$stmt = $pdo->prepare("SELECT * FROM Item WHERE buy_user = :user_id");
+$stmt = $pdo->prepare("SELECT i.*, ii.image_path FROM Item i 
+                       JOIN (SELECT item_id, MIN(image_path) as image_path FROM Item_Image GROUP BY item_id) ii 
+                       ON i.item_id = ii.item_id 
+                       WHERE i.buy_user = :user_id");
 $stmt->bindParam(':user_id', $user_id);
 $stmt->execute();
 $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -37,46 +38,44 @@ $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link href="./registst.css" rel="stylesheet">
 </head>
 <body>
-     <div class="header">
-	    <div class="header_logo">
-        <a href="./index.php">
-            <img src="./img/logo_square.png" alt="Logo">
-        </a>
+<header>
+    <div class="header">
+        <div class="header_logo">
+            <a href="./index.php">
+                <img src="./img/logo_square.png" alt="Logo">
+            </a>
         </div>
         <div class="header_btn">
-         <?php if ($logged_in): ?>
-      	   <a href="./regist/mypage.php" class="btn btn-primary">マイページ</a>
-      	   <a href="./logout.php" class="btn btn-secondary">ログアウト</a>
-         <?php else: ?>
-           <a href="./login.php" class="btn btn-primary">ログイン</a>
-         <?php endif; ?>
-         </div>
-     </div>
-
+            <?php if ($logged_in): ?>
+                <a href="./regist/mypage.php" class="btn btn-primary">マイページ</a>
+                <a href="./logout.php" class="btn btn-secondary">ログアウト</a>
+            <?php else: ?>
+                <a href="./login.php" class="btn btn-primary">ログイン</a>
+            <?php endif; ?>
+        </div>
+    </div>
+</header>
 <div class="container">
-    <h1 class="card-title text-center">購入商品一覧</h1>
-
+    <h2>購入商品一覧</h2>
     <?php if (empty($items)): ?>
         <p>購入した商品はありません。</p>
     <?php else: ?>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>商品名</th>
-                    <th>入札価格</th>
-                    <th>カテゴリー</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($items as $item): ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($item['item_name'], ENT_QUOTES, 'UTF-8'); ?></td>
-                        <td><?php echo htmlspecialchars($item['item_price'], ENT_QUOTES, 'UTF-8'); ?></td>
-                        <td><?php echo htmlspecialchars($item['category'], ENT_QUOTES, 'UTF-8'); ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+        <div class="product-list">
+            <?php foreach ($items as $item): ?>
+                <div class="product-item">
+                    <a href="itemdetails.php?item_id=<?= htmlspecialchars($item['item_id']) ?>">
+                        <div class="product-image">
+                            <img src="<?= htmlspecialchars($item['image_path']) ?>" alt="<?= htmlspecialchars($item['item_name']) ?>">
+                        </div>
+                        <div class="product-info">
+                            <h3><?= htmlspecialchars($item['item_name'], ENT_QUOTES, 'UTF-8') ?></h3>
+                            <p>入札価格: ¥<?= number_format($item['item_price']) ?></p>
+                            <p>カテゴリー: <?= htmlspecialchars($item['category']) ?></p>
+                        </div>
+                    </a>
+                </div>
+            <?php endforeach; ?>
+        </div>
     <?php endif; ?>
 </div>
 </body>
