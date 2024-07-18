@@ -155,9 +155,9 @@ phpを出品画面でアップして、
 │   └── registst3.php  
 └── registst.css  
 
-## オークションサイトセットアップ方法
-–––
-1. php の設定を変更（デフォ設定だと、アップロードできるファイルが20ファイルまで,容量は2MBまでしかアップロードできません。）
+# オークションサイトセットアップ方法
+
+## php の設定を変更（デフォ設定だと、アップロードできるファイルが20ファイルまで,容量は2MBまでしかアップロードできません。）
 
 ```shell:php.iniファイル変更
 sudo cp /etc/php/8.1/apache2/php.ini /etc/php/8.1/apache2/php.ini.bak
@@ -184,8 +184,7 @@ imagesの権限をwww-dataに対して書き込み権限を与える必要があ
 sudo chmod 757 /var/www/html/auction/images
 ```
 
-–––
-2. データベース作成
+## データベース作成
 mysqlからデータベース作成してもいいし、最新のプログラムをダウンロードした場合は
 **/auction/createdatabase.php**を開いていただくことでデータベースの作成からテーブルの作成まですべてやってくれます
 
@@ -234,9 +233,9 @@ CREATE TABLE `Item_Image` (
     `image_path` VARCHAR(255) NOT NULL DEFAULT ''
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4;
 ```
-–––
 
-3. ハッキング方法
+
+# ハッキング方法
 
 ## sqlインジェクション攻撃
 **http://IPアドレス/auction/userview2.php**にアクセスし、下記sql文を入力する。
@@ -248,7 +247,7 @@ SELECT Item.item_id, Item.item_name, Item.item_price, Item.max_price, Item.buy_u
 
 出品者の情報（電話番号、住所、クレジットカード番号、パスワード）等の情報が抜き取ることが出来ますよーって説明する感じでいいと思う
 
-–––
+
 ## XSS攻撃
 XSS攻撃は**http://IPアドレス/auction/image_add.php**にアクセスをし、商品名の欄に以下の値を入力する
 
