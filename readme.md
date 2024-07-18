@@ -258,9 +258,9 @@ XSS攻撃は**http://IPアドレス/auction/image_add.php**にアクセスをし
 初期価格と、即決価格、カテゴリーは適当な値でOK
 
 ファイル選択欄でkogeki.phpをアップロードしてください。
-**DLLink:https://github.com/onoyuki53/projectAuction/releases/download/xss/kogeki.php**
-右クリック→リンク先を保存などで出来ると思う。
-出品をクリックしたらトップページに戻って、先ほど出品した商品名（デフォルトだと「ジャケット0719」）をクリックしたら工科大爆破予告にすべて変わります！
+**DLLink:https://github.com/onoyuki53/projectAuction/releases/download/xss/kogeki.php**  
+右クリック→リンク先を保存などで出来ると思う。  
+出品をクリックしたらトップページに戻って、先ほど出品した商品名（デフォルトだと「ジャケット0719」）をクリックしたら工科大爆破予告にすべて変わります！  
 
 
-これ通りにやる必要は全然ないので、もっといい方法があったらそれで大丈夫！
+これ通りにやる必要は全然ないので、もっといい方法があったらそれで大丈夫！  
