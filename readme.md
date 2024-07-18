@@ -184,7 +184,7 @@ imagesの権限をwww-dataに対して書き込み権限を与える必要があ
 sudo chmod 757 /var/www/html/auction/images
 ```
 
-2.データベース作成
+1.データベース作成
 mysqlからデータベース作成してもいいし、最新のプログラムをダウンロードした場合は
 **/auction/createdatabase.php**を開いていただくことでデータベースの作成からテーブルの作成まですべてやってくれます
 
@@ -235,7 +235,7 @@ CREATE TABLE `Item_Image` (
 ```
 
 
-3. ハッキング方法
+1. ハッキング方法
 
 ## sqlインジェクション攻撃
 **http://IPアドレス/auction/userview2.php**にアクセスし、下記sql文を入力する。
