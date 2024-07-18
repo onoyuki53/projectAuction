@@ -100,7 +100,7 @@ $result = $conn->query($sql);
             case '衣類':
                 return './img/clothes_category.png';
             default:
-                return './img/watch_category.png'; // デフォルト画像（カテゴリーが未指定の場合など）
+                return './img/topimage.png'; // デフォルト画像（カテゴリーが未指定の場合など）
         }
     }
 
